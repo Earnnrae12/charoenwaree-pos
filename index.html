@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th" class="text-[16px]" id="html-root">
+<html lang="th" class="text-[24px]" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        body { font-family: 'Prompt', sans-serif; font-size: 16px; }
+        body { font-family: 'Prompt', sans-serif; font-size: 24px; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         @media print {
@@ -23,99 +23,103 @@
 
     <!-- Top Navigation -->
     <header class="bg-cyan-600 text-white shadow-md z-20 flex-shrink-0 sticky top-0">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between relative">
+        <div class="max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between relative">
             <div class="flex items-center space-x-3 flex-shrink-0">
-                <div class="bg-white text-cyan-600 p-2.5 rounded-2xl font-bold text-2xl shadow">
+                <div class="bg-white text-cyan-600 p-3 rounded-2xl font-bold text-3xl shadow">
                     <i class="fa-solid fa-cube"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-[18px] leading-tight" id="header-store-name">ร้านเจริญวารี</h1>
-                    <p class="text-[14px] text-cyan-100">ผู้ใช้งาน: <span id="user-name-display">ผู้ดูแลระบบ</span></p>
+                    <h1 class="font-bold text-[26px] leading-tight" id="header-store-name">ร้านเจริญวารี</h1>
+                    <p class="text-[19px] text-cyan-100">ผู้ใช้งาน: <span id="user-name-display">ผู้ดูแลระบบ</span></p>
                 </div>
             </div>
             
-            <nav class="absolute left-1/2 -translate-x-1/2 hidden md:flex space-x-2 bg-cyan-700/60 p-1.5 rounded-2xl items-center flex-nowrap">
-                <button onclick="switchTab('pos')" id="tab-pos" class="px-4 py-2 rounded-xl text-[16px] font-medium transition-all bg-white text-cyan-700 shadow whitespace-nowrap"><i class="fa-solid fa-store mr-1.5"></i> ขายสินค้า</button>
-                <button onclick="switchTab('stock')" id="tab-stock" class="px-4 py-2 rounded-xl text-[16px] font-medium transition-all text-white hover:bg-white/10 whitespace-nowrap relative">
+            <nav class="absolute left-1/2 -translate-x-1/2 hidden lg:flex space-x-2 bg-cyan-700/60 p-1.5 rounded-2xl items-center flex-nowrap">
+                <button onclick="switchTab('pos')" id="tab-pos" class="px-4 py-2.5 rounded-xl text-[22px] font-medium transition-all bg-white text-cyan-700 shadow whitespace-nowrap"><i class="fa-solid fa-store mr-1.5"></i> ขายสินค้า</button>
+                <button onclick="switchTab('stock')" id="tab-stock" class="px-4 py-2.5 rounded-xl text-[22px] font-medium transition-all text-white hover:bg-white/10 whitespace-nowrap relative">
                     <i class="fa-solid fa-boxes-stacked mr-1.5"></i> จัดการสต็อก
-                    <span id="stock-alert-badge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                    <span id="stock-alert-badge" class="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[15px] w-7 h-7 rounded-full flex items-center justify-center font-bold hidden">0</span>
                 </button>
-                <button onclick="switchTab('dashboard')" id="tab-dashboard" class="px-4 py-2 rounded-xl text-[16px] font-medium transition-all text-white hover:bg-white/10 whitespace-nowrap"><i class="fa-solid fa-chart-pie mr-1.5"></i> สรุปยอด</button>
-                <button onclick="switchTab('settings')" id="tab-settings" class="px-4 py-2 rounded-xl text-[16px] font-medium transition-all text-white hover:bg-white/10 whitespace-nowrap"><i class="fa-solid fa-gear mr-1.5"></i> ตั้งค่า</button>
+                <button onclick="switchTab('dashboard')" id="tab-dashboard" class="px-4 py-2.5 rounded-xl text-[22px] font-medium transition-all text-white hover:bg-white/10 whitespace-nowrap"><i class="fa-solid fa-chart-pie mr-1.5"></i> สรุปยอด</button>
+                <button onclick="switchTab('settings')" id="tab-settings" class="px-4 py-2.5 rounded-xl text-[22px] font-medium transition-all text-white hover:bg-white/10 whitespace-nowrap"><i class="fa-solid fa-gear mr-1.5"></i> ตั้งค่า</button>
             </nav>
 
-            <div class="w-36 hidden md:block"></div>
+            <div class="hidden lg:flex items-center justify-end w-44">
+                <span id="sync-status-badge" class="text-[17px] px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-300/40 text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-cloud text-emerald-200"></i> <span>ซิงค์แล้ว</span>
+                </span>
+            </div>
         </div>
 
-        <nav class="flex md:hidden space-x-1 bg-cyan-700/80 p-2 justify-center items-center overflow-x-auto hide-scrollbar">
-            <button onclick="switchTab('pos')" id="tab-pos-m" class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-all bg-white text-cyan-700 shadow whitespace-nowrap"><i class="fa-solid fa-store mr-1"></i> ขายสินค้า</button>
-            <button onclick="switchTab('stock')" id="tab-stock-m" class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-all text-white whitespace-nowrap relative"><i class="fa-solid fa-boxes-stacked mr-1"></i> สต็อก</button>
-            <button onclick="switchTab('dashboard')" id="tab-dashboard-m" class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-all text-white whitespace-nowrap"><i class="fa-solid fa-chart-pie mr-1"></i> สรุป</button>
-            <button onclick="switchTab('settings')" id="tab-settings-m" class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-all text-white whitespace-nowrap"><i class="fa-solid fa-gear mr-1"></i> ตั้งค่า</button>
+        <nav class="flex lg:hidden space-x-2 bg-cyan-700/80 p-2.5 justify-center items-center overflow-x-auto hide-scrollbar">
+            <button onclick="switchTab('pos')" id="tab-pos-m" class="px-4 py-2 rounded-xl text-[21px] font-medium transition-all bg-white text-cyan-700 shadow whitespace-nowrap"><i class="fa-solid fa-store mr-1"></i> ขายสินค้า</button>
+            <button onclick="switchTab('stock')" id="tab-stock-m" class="px-4 py-2 rounded-xl text-[21px] font-medium transition-all text-white whitespace-nowrap relative"><i class="fa-solid fa-boxes-stacked mr-1"></i> สต็อก</button>
+            <button onclick="switchTab('dashboard')" id="tab-dashboard-m" class="px-4 py-2 rounded-xl text-[21px] font-medium transition-all text-white whitespace-nowrap"><i class="fa-solid fa-chart-pie mr-1"></i> สรุป</button>
+            <button onclick="switchTab('settings')" id="tab-settings-m" class="px-4 py-2 rounded-xl text-[21px] font-medium transition-all text-white whitespace-nowrap"><i class="fa-solid fa-gear mr-1"></i> ตั้งค่า</button>
         </nav>
     </header>
 
     <main class="flex-1 flex flex-col relative">
         <!-- ================= TAB 1: POS ================= -->
         <section id="view-pos" class="flex-1 flex flex-col md:flex-row w-full">
-            <div class="flex-1 flex flex-col p-4 pb-24 md:pb-4">
+            <div class="flex-1 flex flex-col p-4 pb-32 md:pb-4">
                 <!-- แถบแจ้งเตือนสินค้าใกล้หมดหน้า POS -->
-                <div id="pos-low-stock-banner" class="hidden mb-4 bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 rounded-2xl flex items-center justify-between text-[15px]">
-                    <div class="flex items-center space-x-2">
-                        <i class="fa-solid fa-triangle-exclamation text-rose-500 text-lg"></i>
+                <div id="pos-low-stock-banner" class="hidden mb-4 bg-rose-50 border border-rose-200 text-rose-700 px-5 py-4 rounded-2xl flex flex-wrap items-center justify-between gap-3 text-[22px]">
+                    <div class="flex items-center space-x-2.5">
+                        <i class="fa-solid fa-triangle-exclamation text-rose-500 text-2xl"></i>
                         <span>มีสินค้าใกล้หมดหรือหมดสต็อกจำนวน <strong id="pos-low-count">0</strong> รายการ กรุณาตรวจสอบสต็อก</span>
                     </div>
-                    <button onclick="switchTab('stock')" class="bg-rose-600 hover:bg-rose-700 text-white text-[14px] px-3 py-1.5 rounded-xl font-bold transition">ไปที่สต็อก</button>
+                    <button onclick="switchTab('stock')" class="bg-rose-600 hover:bg-rose-700 text-white text-[21px] px-5 py-2.5 rounded-xl font-bold transition">ไปที่สต็อก</button>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4 flex-shrink-0">
                     <div class="relative flex-1">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400"></i>
-                        <input type="text" id="pos-search" oninput="renderPOSProducts()" placeholder="ค้นหาชื่อสินค้า หรือหมวดหมู่..." class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 text-[16px] shadow-sm">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-slate-400 text-[22px]"></i>
+                        <input type="text" id="pos-search" oninput="renderPOSProducts()" placeholder="ค้นหาชื่อสินค้า หรือหมวดหมู่..." class="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 text-[24px] shadow-sm">
                     </div>
-                    <div id="pos-category-filters" class="flex gap-2 overflow-x-auto pb-1 hide-scrollbar"></div>
+                    <div id="pos-category-filters" class="flex gap-2.5 overflow-x-auto pb-1 hide-scrollbar"></div>
                 </div>
                 <div class="flex-1">
-                    <div id="pos-products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                    <div id="pos-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
                 </div>
             </div>
 
             <!-- Cart Sidebar -->
-            <div id="cart-sidebar" class="w-full md:w-96 bg-white border-l border-slate-200 flex flex-col flex-shrink-0 shadow-lg z-10 hidden md:flex">
+            <div id="cart-sidebar" class="w-full md:w-[460px] bg-white border-l border-slate-200 flex flex-col flex-shrink-0 shadow-lg z-10 hidden md:flex">
                 <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                    <h2 class="font-bold text-slate-700 flex items-center text-[16px]">
+                    <h2 class="font-bold text-slate-700 flex items-center text-[24px]">
                         <i class="fa-solid fa-cart-shopping text-cyan-600 mr-2"></i> ตะกร้าสินค้า
-                        <span id="cart-count-badge" class="ml-2 bg-cyan-100 text-cyan-700 text-[14px] px-2 py-0.5 rounded-full">0 ชิ้น</span>
+                        <span id="cart-count-badge" class="ml-2 bg-cyan-100 text-cyan-700 text-[20px] px-3 py-0.5 rounded-full">0 ชิ้น</span>
                     </h2>
-                    <div class="flex items-center space-x-2">
-                        <button onclick="clearCart()" class="text-[14px] text-rose-500 hover:text-rose-700 font-medium">ล้างตะกร้า</button>
-                        <button onclick="toggleMobileCart()" class="md:hidden text-slate-500 hover:text-slate-700 text-[16px]"><i class="fa-solid fa-xmark"></i></button>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="clearCart()" class="text-[21px] text-rose-500 hover:text-rose-700 font-medium">ล้างตะกร้า</button>
+                        <button onclick="toggleMobileCart()" class="md:hidden text-slate-500 hover:text-slate-700 text-[26px] p-1"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
                 <div id="cart-items-list" class="flex-1 p-4 space-y-3 divide-y divide-slate-100 max-h-96 overflow-y-auto"></div>
                 <div class="p-4 bg-slate-50 border-t border-slate-200 space-y-3 flex-shrink-0">
-                    <div class="space-y-1.5 text-[16px]">
+                    <div class="space-y-2 text-[23px]">
                         <div class="flex justify-between text-slate-500"><span>ราคารวมสินค้า</span><span id="cart-subtotal">0.00 ฿</span></div>
                         <div class="flex justify-between text-slate-500"><span>ต้นทุนรวมสินค้า</span><span id="cart-total-cost">0.00 ฿</span></div>
-                        <div class="flex justify-between font-semibold text-emerald-600 text-[14px] bg-emerald-50 p-2 rounded-lg border border-emerald-100">
+                        <div class="flex justify-between font-semibold text-emerald-600 text-[21px] bg-emerald-50 p-3 rounded-xl border border-emerald-100">
                             <span><i class="fa-solid fa-chart-line mr-1"></i> กำไรสุทธิของบิลนี้</span><span id="cart-total-profit">0.00 ฿</span>
                         </div>
-                        <div class="flex justify-between text-[18px] font-bold text-slate-800 pt-1 border-t border-slate-200">
+                        <div class="flex justify-between text-[26px] font-bold text-slate-800 pt-2 border-t border-slate-200">
                             <span>ยอดชำระสุทธิ</span><span id="cart-grand-total" class="text-cyan-600">0.00 ฿</span>
                         </div>
                     </div>
-                    <button onclick="openCheckoutModal()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-cyan-200 transition active:scale-[0.98] flex items-center justify-center space-x-2 text-[16px]">
+                    <button onclick="openCheckoutModal()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-4 px-5 rounded-xl shadow-lg shadow-cyan-200 transition active:scale-[0.98] flex items-center justify-center space-x-2 text-[24px]">
                         <i class="fa-solid fa-money-bill-wave"></i><span>ชำระเงิน / คิดเงิน</span>
                     </button>
                 </div>
             </div>
 
-            <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 shadow-2xl flex justify-between items-center z-30">
+            <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 shadow-2xl flex justify-between items-center z-30">
                 <div>
-                    <p class="text-[14px] text-slate-500">ยอดรวม (<span id="mob-cart-count">0</span> รายการ)</p>
-                    <p class="text-[18px] font-bold text-cyan-600" id="mob-cart-total">0.00 ฿</p>
+                    <p class="text-[20px] text-slate-500">ยอดรวม (<span id="mob-cart-count">0</span> รายการ)</p>
+                    <p class="text-[26px] font-bold text-cyan-600" id="mob-cart-total">0.00 ฿</p>
                 </div>
-                <button onclick="toggleMobileCart()" class="bg-cyan-600 text-white px-5 py-2.5 rounded-xl font-bold text-[16px] shadow-md">ดูตะกร้า & ชำระเงิน</button>
+                <button onclick="toggleMobileCart()" class="bg-cyan-600 text-white px-6 py-3.5 rounded-xl font-bold text-[23px] shadow-md">ดูตะกร้า & ชำระเงิน</button>
             </div>
         </section>
 
@@ -123,27 +127,27 @@
         <section id="view-stock" class="flex-1 flex flex-col w-full hidden bg-white p-4">
             <div class="border-b border-slate-200 pb-4 mb-4 flex flex-col sm:flex-row justify-between items-center gap-3">
                 <div class="relative flex-1 sm:w-80 w-full">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400"></i>
-                    <input type="text" id="stock-search" oninput="renderStockTable()" placeholder="ค้นหาสินค้าในสต็อก..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-[16px] focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-slate-400"></i>
+                    <input type="text" id="stock-search" oninput="renderStockTable()" placeholder="ค้นหาสินค้าในสต็อก..." class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-[24px] focus:outline-none focus:ring-2 focus:ring-cyan-500">
                 </div>
-                <div class="flex gap-2 w-full sm:w-auto justify-end">
-                    <button onclick="openCategoryModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-[16px] font-medium transition flex items-center"><i class="fa-solid fa-folder-tree mr-2"></i> หมวดหมู่</button>
-                    <button onclick="openProductModal()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-xl text-[16px] font-medium transition shadow-md shadow-cyan-100 flex items-center"><i class="fa-solid fa-plus mr-2"></i> เพิ่มสินค้า</button>
+                <div class="flex gap-2.5 w-full sm:w-auto justify-end">
+                    <button onclick="openCategoryModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-3 rounded-xl text-[22px] font-medium transition flex items-center"><i class="fa-solid fa-folder-tree mr-2"></i> หมวดหมู่</button>
+                    <button onclick="openProductModal()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-3 rounded-xl text-[22px] font-medium transition shadow-md shadow-cyan-100 flex items-center"><i class="fa-solid fa-plus mr-2"></i> เพิ่มสินค้า</button>
                 </div>
             </div>
             <div class="flex-1">
                 <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-[16px]">
-                        <thead class="bg-slate-50 text-slate-600 uppercase text-[14px] tracking-wider border-b border-slate-200">
+                    <table class="w-full text-left border-collapse text-[23px]">
+                        <thead class="bg-slate-50 text-slate-600 uppercase text-[20px] tracking-wider border-b border-slate-200">
                             <tr>
-                                <th class="p-3 text-center w-16">ลำดับ</th>
-                                <th class="p-3">สินค้า</th>
-                                <th class="p-3">หมวดหมู่</th>
-                                <th class="p-3 text-right">ราคาทุน</th>
-                                <th class="p-3 text-right">ราคาขาย</th>
-                                <th class="p-3 text-right">กำไร / ชิ้น</th>
-                                <th class="p-3 text-center">คงเหลือ</th>
-                                <th class="p-3 text-center">จัดการ</th>
+                                <th class="p-4 text-center w-24">ลำดับ</th>
+                                <th class="p-4">สินค้า</th>
+                                <th class="p-4">หมวดหมู่</th>
+                                <th class="p-4 text-right">ราคาทุน</th>
+                                <th class="p-4 text-right">ราคาขาย</th>
+                                <th class="p-4 text-right">กำไร / ชิ้น</th>
+                                <th class="p-4 text-center">คงเหลือ</th>
+                                <th class="p-4 text-center">จัดการ</th>
                             </tr>
                         </thead>
                         <tbody id="stock-table-body" class="divide-y divide-slate-100"></tbody>
@@ -156,20 +160,20 @@
         <section id="view-dashboard" class="flex-1 flex flex-col p-4 md:p-6 w-full hidden space-y-6">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
-                    <div class="bg-cyan-50 text-cyan-600 w-12 h-12 rounded-xl flex items-center justify-center text-[20px] font-bold"><i class="fa-solid fa-receipt"></i></div>
-                    <div><p class="text-[14px] text-slate-500 font-medium">ยอดขายรวมทั้งหมด</p><h3 class="text-[18px] font-bold text-slate-800" id="dash-total-sales">0.00 ฿</h3></div>
+                    <div class="bg-cyan-50 text-cyan-600 w-16 h-16 rounded-xl flex items-center justify-center text-[28px] font-bold"><i class="fa-solid fa-receipt"></i></div>
+                    <div><p class="text-[21px] text-slate-500 font-medium">ยอดขายรวมทั้งหมด</p><h3 class="text-[26px] font-bold text-slate-800" id="dash-total-sales">0.00 ฿</h3></div>
                 </div>
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
-                    <div class="bg-amber-50 text-amber-600 w-12 h-12 rounded-xl flex items-center justify-center text-[20px] font-bold"><i class="fa-solid fa-wallet"></i></div>
-                    <div><p class="text-[14px] text-slate-500 font-medium">ต้นทุนรวมสินค้า</p><h3 class="text-[18px] font-bold text-slate-800" id="dash-total-cost">0.00 ฿</h3></div>
+                    <div class="bg-amber-50 text-amber-600 w-16 h-16 rounded-xl flex items-center justify-center text-[28px] font-bold"><i class="fa-solid fa-wallet"></i></div>
+                    <div><p class="text-[21px] text-slate-500 font-medium">ต้นทุนรวมสินค้า</p><h3 class="text-[26px] font-bold text-slate-800" id="dash-total-cost">0.00 ฿</h3></div>
                 </div>
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
-                    <div class="bg-emerald-50 text-emerald-600 w-12 h-12 rounded-xl flex items-center justify-center text-[20px] font-bold"><i class="fa-solid fa-chart-line"></i></div>
-                    <div><p class="text-[14px] text-slate-500 font-medium">กำไรสุทธิรวม</p><h3 class="text-[18px] font-bold text-emerald-600" id="dash-total-profit">0.00 ฿</h3></div>
+                    <div class="bg-emerald-50 text-emerald-600 w-16 h-16 rounded-xl flex items-center justify-center text-[28px] font-bold"><i class="fa-solid fa-chart-line"></i></div>
+                    <div><p class="text-[21px] text-slate-500 font-medium">กำไรสุทธิรวม</p><h3 class="text-[26px] font-bold text-emerald-600" id="dash-total-profit">0.00 ฿</h3></div>
                 </div>
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
-                    <div class="bg-blue-50 text-blue-600 w-12 h-12 rounded-xl flex items-center justify-center text-[20px] font-bold"><i class="fa-solid fa-percent"></i></div>
-                    <div><p class="text-[14px] text-slate-500 font-medium">อัตรากำไรเฉลี่ย</p><h3 class="text-[18px] font-bold text-blue-600" id="dash-avg-margin">0.00%</h3></div>
+                    <div class="bg-blue-50 text-blue-600 w-16 h-16 rounded-xl flex items-center justify-center text-[28px] font-bold"><i class="fa-solid fa-percent"></i></div>
+                    <div><p class="text-[21px] text-slate-500 font-medium">อัตรากำไรเฉลี่ย</p><h3 class="text-[26px] font-bold text-blue-600" id="dash-avg-margin">0.00%</h3></div>
                 </div>
             </div>
 
@@ -177,50 +181,50 @@
             <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b pb-4">
                     <div>
-                        <h2 class="text-[18px] font-bold text-slate-800 flex items-center"><i class="fa-solid fa-chart-line text-cyan-600 mr-2"></i> รายงานและวิเคราะห์การขาย</h2>
-                        <p class="text-[14px] text-slate-500">วิเคราะห์ข้อมูลยอดขายแยกตามรายวัน รายอาทิตย์ และรายเดือน</p>
+                        <h2 class="text-[26px] font-bold text-slate-800 flex items-center"><i class="fa-solid fa-chart-line text-cyan-600 mr-2"></i> รายงานและวิเคราะห์การขาย</h2>
+                        <p class="text-[21px] text-slate-500">วิเคราะห์ข้อมูลยอดขายแยกตามรายวัน รายอาทิตย์ และรายเดือน</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button onclick="setAnalyticsMode('daily')" id="btn-an-daily" class="px-3 py-1.5 text-[14px] bg-cyan-600 text-white rounded-xl font-bold shadow">รายวัน</button>
-                        <button onclick="setAnalyticsMode('weekly')" id="btn-an-weekly" class="px-3 py-1.5 text-[14px] bg-slate-100 text-slate-600 rounded-xl font-medium">รายอาทิตย์</button>
-                        <button onclick="setAnalyticsMode('monthly')" id="btn-an-monthly" class="px-3 py-1.5 text-[14px] bg-slate-100 text-slate-600 rounded-xl font-medium">รายเดือน</button>
+                        <button onclick="setAnalyticsMode('daily')" id="btn-an-daily" class="px-4 py-2.5 text-[21px] bg-cyan-600 text-white rounded-xl font-bold shadow">รายวัน</button>
+                        <button onclick="setAnalyticsMode('weekly')" id="btn-an-weekly" class="px-4 py-2.5 text-[21px] bg-slate-100 text-slate-600 rounded-xl font-medium">รายอาทิตย์</button>
+                        <button onclick="setAnalyticsMode('monthly')" id="btn-an-monthly" class="px-4 py-2.5 text-[21px] bg-slate-100 text-slate-600 rounded-xl font-medium">รายเดือน</button>
                     </div>
                 </div>
 
                 <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 p-4 rounded-2xl">
                     <div>
-                        <label class="block text-[14px] font-medium text-slate-600 mb-1" id="analytics-filter-label">เลือกวันที่วิเคราะห์</label>
-                        <input type="date" id="analytics-date-input" onchange="renderAnalyticsData()" class="px-3 py-2 border rounded-xl text-[16px] bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                        <label class="block text-[21px] font-medium text-slate-600 mb-1" id="analytics-filter-label">เลือกวันที่วิเคราะห์</label>
+                        <input type="date" id="analytics-date-input" onchange="renderAnalyticsData()" class="px-4 py-3 border rounded-xl text-[24px] bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
                     </div>
-                    <button onclick="openExportModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-[16px] font-bold transition flex items-center shadow-sm">
+                    <button onclick="openExportModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3.5 rounded-xl text-[22px] font-bold transition flex items-center shadow-sm">
                         <i class="fa-solid fa-file-excel mr-2"></i> Export รายงานการขาย (CSV)
                     </button>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div class="bg-cyan-50/50 p-4 rounded-2xl border border-cyan-100 space-y-1">
-                        <p class="text-[14px] text-slate-500">ยอดขายรวมในช่วงเวลานี้</p>
-                        <h3 class="text-[18px] font-bold text-cyan-700" id="an-total-sales">0.00 ฿</h3>
+                        <p class="text-[21px] text-slate-500">ยอดขายรวมในช่วงเวลานี้</p>
+                        <h3 class="text-[26px] font-bold text-cyan-700" id="an-total-sales">0.00 ฿</h3>
                     </div>
                     <div class="bg-emerald-50/50 p-4 rounded-2xl border border-emerald-100 space-y-1">
-                        <p class="text-[14px] text-slate-500">กำไรสุทธิในช่วงเวลานี้</p>
-                        <h3 class="text-[18px] font-bold text-emerald-700" id="an-total-profit">0.00 ฿</h3>
+                        <p class="text-[21px] text-slate-500">กำไรสุทธิในช่วงเวลานี้</p>
+                        <h3 class="text-[26px] font-bold text-emerald-700" id="an-total-profit">0.00 ฿</h3>
                     </div>
                     <div class="bg-amber-50/50 p-4 rounded-2xl border border-amber-100 space-y-1">
-                        <p class="text-[14px] text-slate-500">จำนวนบิลขาย</p>
-                        <h3 class="text-[18px] font-bold text-amber-700" id="an-total-bills">0 บิล</h3>
+                        <p class="text-[21px] text-slate-500">จำนวนบิลขาย</p>
+                        <h3 class="text-[26px] font-bold text-amber-700" id="an-total-bills">0 บิล</h3>
                     </div>
                 </div>
 
                 <div class="border-t pt-4 space-y-3">
-                    <h3 class="font-bold text-[16px] text-slate-800">สินค้าขายดีในช่วงเวลานี้</h3>
+                    <h3 class="font-bold text-[24px] text-slate-800">สินค้าขายดีในช่วงเวลานี้</h3>
                     <div class="border rounded-2xl overflow-hidden max-h-60 overflow-y-auto">
-                        <table class="w-full text-left text-[16px] border-collapse">
-                            <thead class="bg-slate-50 text-slate-500 sticky top-0 text-[14px]">
+                        <table class="w-full text-left text-[23px] border-collapse">
+                            <thead class="bg-slate-50 text-slate-500 sticky top-0 text-[20px]">
                                 <tr>
-                                    <th class="p-3">สินค้า</th>
-                                    <th class="p-3 text-center">จำนวนที่ขายได้</th>
-                                    <th class="p-3 text-right">ยอดขายรวม</th>
+                                    <th class="p-4">สินค้า</th>
+                                    <th class="p-4 text-center">จำนวนที่ขายได้</th>
+                                    <th class="p-4 text-right">ยอดขายรวม</th>
                                 </tr>
                             </thead>
                             <tbody id="analytics-products-tbody" class="divide-y divide-slate-100"></tbody>
@@ -231,30 +235,30 @@
 
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
                 <div>
-                    <h3 class="font-bold text-slate-800 text-[18px]">ระบบปิดรอบบัญชี</h3>
-                    <p class="text-[14px] text-slate-500">บันทึกยอดขายประจำวันและประจำเดือน</p>
+                    <h3 class="font-bold text-slate-800 text-[25px]">ระบบปิดรอบบัญชี</h3>
+                    <p class="text-[21px] text-slate-500">บันทึกยอดขายประจำวันและประจำเดือน</p>
                 </div>
-                <div class="flex flex-wrap gap-2">
-                    <button onclick="closeDaily()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-[16px] font-medium shadow-sm transition flex items-center"><i class="fa-solid fa-calendar-day mr-2"></i> ปิดยอดวันนี้</button>
-                    <button onclick="closeMonthly()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2.5 rounded-xl text-[16px] font-medium transition flex items-center"><i class="fa-solid fa-calendar-days mr-2"></i> ปิดยอดเดือนนี้</button>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="closeDaily()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3.5 rounded-xl text-[22px] font-medium shadow-sm transition flex items-center"><i class="fa-solid fa-calendar-day mr-2"></i> ปิดยอดวันนี้</button>
+                    <button onclick="closeMonthly()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-3.5 rounded-xl text-[22px] font-medium transition flex items-center"><i class="fa-solid fa-calendar-days mr-2"></i> ปิดยอดเดือนนี้</button>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
                     <div class="flex justify-between items-center mb-3">
-                        <h3 class="font-bold text-slate-800 text-[16px] flex items-center"><i class="fa-solid fa-clock-rotate-left text-cyan-600 mr-2"></i> ประวัติการขาย (คลิกเพื่อแก้ไข/พิมพ์บิล)</h3>
-                        <button id="btn-delete-selected" onclick="deleteSelectedSales()" class="hidden bg-rose-50 hover:bg-rose-100 text-rose-600 text-[14px] font-bold px-3 py-1.5 rounded-xl transition flex items-center"><i class="fa-solid fa-trash-can mr-1.5"></i> ลบบิลที่เลือก (<span id="selected-count">0</span>)</button>
+                        <h3 class="font-bold text-slate-800 text-[24px] flex items-center"><i class="fa-solid fa-clock-rotate-left text-cyan-600 mr-2"></i> ประวัติการขาย (คลิกเพื่อแก้ไข/พิมพ์บิล)</h3>
+                        <button id="btn-delete-selected" onclick="deleteSelectedSales()" class="hidden bg-rose-50 hover:bg-rose-100 text-rose-600 text-[20px] font-bold px-4 py-2.5 rounded-xl transition flex items-center"><i class="fa-solid fa-trash-can mr-1.5"></i> ลบบิลที่เลือก (<span id="selected-count">0</span>)</button>
                     </div>
                     <div class="border rounded-xl overflow-x-auto max-h-80 overflow-y-auto">
-                        <table class="w-full text-left text-[16px] border-collapse">
-                            <thead class="bg-slate-50 text-slate-500 sticky top-0 text-[14px]">
+                        <table class="w-full text-left text-[22px] border-collapse">
+                            <thead class="bg-slate-50 text-slate-500 sticky top-0 text-[20px]">
                                 <tr>
-                                    <th class="p-2.5 text-center w-10"><input type="checkbox" id="select-all-sales" onclick="toggleSelectAllSales(this)" class="w-4 h-4 accent-cyan-600 rounded cursor-pointer"></th>
-                                    <th class="p-2.5">วัน-เวลาไทย</th>
-                                    <th class="p-2.5 text-right">ยอดขาย</th>
-                                    <th class="p-2.5 text-right">กำไร</th>
-                                    <th class="p-2.5 text-center">จัดการ</th>
+                                    <th class="p-3.5 text-center w-14"><input type="checkbox" id="select-all-sales" onclick="toggleSelectAllSales(this)" class="w-6 h-6 accent-cyan-600 rounded cursor-pointer"></th>
+                                    <th class="p-3.5">วัน-เวลาไทย</th>
+                                    <th class="p-3.5 text-right">ยอดขาย</th>
+                                    <th class="p-3.5 text-right">กำไร</th>
+                                    <th class="p-3.5 text-center">จัดการ</th>
                                 </tr>
                             </thead>
                             <tbody id="sales-history-tbody" class="divide-y divide-slate-100"></tbody>
@@ -262,15 +266,15 @@
                     </div>
                 </div>
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
-                    <h3 class="font-bold text-slate-800 mb-3 text-[16px] flex items-center"><i class="fa-solid fa-file-invoice-dollar text-emerald-600 mr-2"></i> ประวัติการปิดยอดรอบบัญชี</h3>
+                    <h3 class="font-bold text-slate-800 mb-3 text-[24px] flex items-center"><i class="fa-solid fa-file-invoice-dollar text-emerald-600 mr-2"></i> ประวัติการปิดยอดรอบบัญชี</h3>
                     <div class="border rounded-xl overflow-x-auto max-h-80 overflow-y-auto">
-                        <table class="w-full text-left text-[16px] border-collapse">
-                            <thead class="bg-slate-50 text-slate-500 sticky top-0 text-[14px]">
+                        <table class="w-full text-left text-[22px] border-collapse">
+                            <thead class="bg-slate-50 text-slate-500 sticky top-0 text-[20px]">
                                 <tr>
-                                    <th class="p-2.5">รอบบัญชี</th>
-                                    <th class="p-2.5 text-center">บิล</th>
-                                    <th class="p-2.5 text-right">ยอดขาย</th>
-                                    <th class="p-2.5 text-right">กำไรสุทธิ</th>
+                                    <th class="p-3.5">รอบบัญชี</th>
+                                    <th class="p-3.5 text-center">บิล</th>
+                                    <th class="p-3.5 text-right">ยอดขาย</th>
+                                    <th class="p-3.5 text-right">กำไรสุทธิ</th>
                                 </tr>
                             </thead>
                             <tbody id="closing-history-tbody" class="divide-y divide-slate-100"></tbody>
@@ -286,47 +290,50 @@
                 
                 <!-- ตั้งค่าข้อมูลร้านค้า (Store Profile) -->
                 <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                    <h2 class="text-[18px] font-bold text-slate-800 flex items-center"><i class="fa-solid fa-store text-cyan-600 mr-2"></i> ตั้งค่าข้อมูลร้านค้า (ออกหัวบิล/ใบเสร็จ)</h2>
-                    <form onsubmit="saveStoreProfile(event)" class="space-y-4 text-[16px]">
+                    <h2 class="text-[26px] font-bold text-slate-800 flex items-center"><i class="fa-solid fa-store text-cyan-600 mr-2"></i> ตั้งค่าข้อมูลร้านค้า (ออกหัวบิล/ใบเสร็จ)</h2>
+                    <form onsubmit="saveStoreProfile(event)" class="space-y-4 text-[24px]">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-[14px] font-medium text-slate-600 mb-1">ชื่อร้าน</label>
-                                <input type="text" id="setting-store-name" required class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                                <label class="block text-[21px] font-medium text-slate-600 mb-1">ชื่อร้าน</label>
+                                <input type="text" id="setting-store-name" required class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-[14px] font-medium text-slate-600 mb-1">เบอร์โทรศัพท์</label>
-                                <input type="text" id="setting-store-phone" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                                <label class="block text-[21px] font-medium text-slate-600 mb-1">เบอร์โทรศัพท์</label>
+                                <input type="text" id="setting-store-phone" class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-[14px] font-medium text-slate-600 mb-1">ที่อยู่ร้าน</label>
-                            <textarea id="setting-store-address" rows="2" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none"></textarea>
+                            <label class="block text-[21px] font-medium text-slate-600 mb-1">ที่อยู่ร้าน</label>
+                            <textarea id="setting-store-address" rows="2" class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none"></textarea>
                         </div>
                         <div>
-                            <label class="block text-[14px] font-medium text-slate-600 mb-1">เลขประจำตัวผู้เสียภาษี (ถ้ามี)</label>
-                            <input type="text" id="setting-store-tax" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                            <label class="block text-[21px] font-medium text-slate-600 mb-1">เลขประจำตัวผู้เสียภาษี (ถ้ามี)</label>
+                            <input type="text" id="setting-store-tax" class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                         </div>
                         <div>
-                            <button type="submit" class="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-2.5 rounded-xl font-bold transition shadow-sm">บันทึกข้อมูลร้านค้า</button>
+                            <button type="submit" class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3.5 rounded-xl font-bold transition shadow-sm text-[23px]">บันทึกข้อมูลร้านค้า</button>
                         </div>
                     </form>
                 </div>
 
                 <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                    <h2 class="text-[18px] font-bold text-slate-800 flex items-center"><i class="fa-solid fa-power-off text-cyan-600 mr-2"></i> ควบคุมและรีเซ็ตระบบ</h2>
-                    <p class="text-[14px] text-slate-500">รีเฟรชและโหลดข้อมูลใหม่ทั้งหมดจากฐานข้อมูล เพื่อแก้ไขปัญหาหน้าจอค้างหรือข้อมูลไม่ตรงกัน</p>
-                    <div>
-                        <button onclick="handleLogout()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2.5 rounded-xl text-[16px] font-bold transition flex items-center shadow-sm">
+                    <h2 class="text-[26px] font-bold text-slate-800 flex items-center"><i class="fa-solid fa-power-off text-cyan-600 mr-2"></i> ควบคุมและรีเซ็ตระบบ</h2>
+                    <p class="text-[21px] text-slate-500">รีเฟรชและโหลดข้อมูลใหม่ทั้งหมด เพื่อแก้ไขปัญหาหน้าจอค้างหรือซิงค์ข้อมูลจากคลาวด์</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="syncLocalToSupabase()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3.5 rounded-xl text-[22px] font-bold transition flex items-center shadow-sm">
+                            <i class="fa-solid fa-cloud-arrow-up mr-2"></i> ซิงค์ข้อมูลสำรองขึ้น Cloud
+                        </button>
+                        <button onclick="handleLogout()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-3.5 rounded-xl text-[22px] font-bold transition flex items-center shadow-sm">
                             <i class="fa-solid fa-rotate-right mr-2"></i> รีเซ็ตระบบ (โหลดหน้าใหม่)
                         </button>
                     </div>
                 </div>
 
                 <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                    <h2 class="text-[18px] font-bold text-slate-800 flex items-center"><i class="fa-solid fa-database text-rose-500 mr-2"></i> จัดการฐานข้อมูล & สำรองข้อมูล</h2>
+                    <h2 class="text-[26px] font-bold text-slate-800 flex items-center"><i class="fa-solid fa-database text-rose-500 mr-2"></i> จัดการฐานข้อมูล & สำรองข้อมูล</h2>
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="exportBackup()" class="bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-4 py-2.5 rounded-xl text-[16px] font-bold transition flex items-center"><i class="fa-solid fa-download mr-1.5"></i> สำรองข้อมูล JSON</button>
-                        <button onclick="clearAllData()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-4 py-2.5 rounded-xl text-[16px] font-bold transition flex items-center"><i class="fa-solid fa-trash-can mr-1.5"></i> ล้างประวัติการขายทั้งหมด</button>
+                        <button onclick="exportBackup()" class="bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-5 py-3.5 rounded-xl text-[22px] font-bold transition flex items-center"><i class="fa-solid fa-download mr-1.5"></i> สำรองข้อมูล JSON</button>
+                        <button onclick="clearAllData()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-5 py-3.5 rounded-xl text-[22px] font-bold transition flex items-center"><i class="fa-solid fa-trash-can mr-1.5"></i> ล้างประวัติการขายทั้งหมด</button>
                     </div>
                 </div>
 
@@ -336,175 +343,175 @@
 
     <!-- ================= MODALS ================= -->
     <div id="export-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="font-bold text-[18px] text-slate-800"><i class="fa-solid fa-file-excel text-emerald-600 mr-2"></i> เลือกช่วงเวลา Export CSV</h3>
-                <button onclick="closeModal('export-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-[20px]"></i></button>
+                <h3 class="font-bold text-[25px] text-slate-800"><i class="fa-solid fa-file-excel text-emerald-600 mr-2"></i> เลือกช่วงเวลา Export CSV</h3>
+                <button onclick="closeModal('export-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-[28px]"></i></button>
             </div>
             <div class="flex gap-2 mb-2">
-                <button onclick="setExportMode('range')" id="btn-export-range" class="flex-1 py-1.5 text-[14px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-lg font-medium">ช่วงวันที่</button>
-                <button onclick="setExportMode('month')" id="btn-export-month" class="flex-1 py-1.5 text-[14px] bg-slate-50 text-slate-600 border border-slate-200 rounded-lg font-medium">เลือกเดือน</button>
+                <button onclick="setExportMode('range')" id="btn-export-range" class="flex-1 py-2.5 text-[21px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-xl font-medium">ช่วงวันที่</button>
+                <button onclick="setExportMode('month')" id="btn-export-month" class="flex-1 py-2.5 text-[21px] bg-slate-50 text-slate-600 border border-slate-200 rounded-xl font-medium">เลือกเดือน</button>
             </div>
-            <div id="export-range-section" class="space-y-3 text-[16px]">
-                <div><label class="block text-[14px] font-medium text-slate-600 mb-1">จากวันที่</label><input type="date" id="export-start-date" class="w-full px-3 py-2 border rounded-xl text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
-                <div><label class="block text-[14px] font-medium text-slate-600 mb-1">ถึงวันที่</label><input type="date" id="export-end-date" class="w-full px-3 py-2 border rounded-xl text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
-                <button onclick="exportToCSVByRange()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-[16px] shadow-md mt-3">ดาวน์โหลด CSV (ช่วงวันที่)</button>
+            <div id="export-range-section" class="space-y-3 text-[24px]">
+                <div><label class="block text-[21px] font-medium text-slate-600 mb-1">จากวันที่</label><input type="date" id="export-start-date" class="w-full px-4 py-3 border rounded-xl text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
+                <div><label class="block text-[21px] font-medium text-slate-600 mb-1">ถึงวันที่</label><input type="date" id="export-end-date" class="w-full px-4 py-3 border rounded-xl text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
+                <button onclick="exportToCSVByRange()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-[23px] shadow-md mt-3">ดาวน์โหลด CSV (ช่วงวันที่)</button>
             </div>
-            <div id="export-month-section" class="hidden space-y-3 text-[16px]">
-                <div><label class="block text-[14px] font-medium text-slate-600 mb-1">เลือกเดือน</label><input type="month" id="export-month-input" class="w-full px-3 py-2 border rounded-xl text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
-                <button onclick="exportToCSVByMonth()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-[16px] shadow-md mt-3">ดาวน์โหลด CSV (ทั้งเดือน)</button>
+            <div id="export-month-section" class="hidden space-y-3 text-[24px]">
+                <div><label class="block text-[21px] font-medium text-slate-600 mb-1">เลือกเดือน</label><input type="month" id="export-month-input" class="w-full px-4 py-3 border rounded-xl text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
+                <button onclick="exportToCSVByMonth()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-[23px] shadow-md mt-3">ดาวน์โหลด CSV (ทั้งเดือน)</button>
             </div>
         </div>
     </div>
 
     <div id="edit-sale-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="font-bold text-[18px] text-slate-800">จัดการข้อมูลบิลขาย</h3>
-                <button onclick="closeModal('edit-sale-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-[20px]"></i></button>
+                <h3 class="font-bold text-[25px] text-slate-800">จัดการข้อมูลบิลขาย</h3>
+                <button onclick="closeModal('edit-sale-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-[28px]"></i></button>
             </div>
             <input type="hidden" id="edit-sale-id">
-            <div class="space-y-3 text-[16px]">
+            <div class="space-y-3 text-[24px]">
                 <div>
-                    <label class="block text-[14px] font-medium text-slate-600 mb-1">เลขที่บิล / วันเวลา</label>
-                    <p id="edit-sale-info" class="text-[14px] font-bold text-slate-700 bg-slate-50 p-2.5 rounded-xl border">-</p>
+                    <label class="block text-[21px] font-medium text-slate-600 mb-1">เลขที่บิล / วันเวลา</label>
+                    <p id="edit-sale-info" class="text-[20px] font-bold text-slate-700 bg-slate-50 p-3 rounded-xl border">-</p>
                 </div>
                 <div>
-                    <label class="block text-[14px] font-medium text-slate-600 mb-1">ยอดขายสุทธิ (บาท)</label>
-                    <input type="number" step="0.01" id="edit-sale-total" class="w-full px-3 py-2 border rounded-xl font-bold text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                    <label class="block text-[21px] font-medium text-slate-600 mb-1">ยอดขายสุทธิ (บาท)</label>
+                    <input type="number" step="0.01" id="edit-sale-total" class="w-full px-4 py-3 border rounded-xl font-bold text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-[14px] font-medium text-slate-600 mb-1">กำไรสุทธิ (บาท)</label>
-                    <input type="number" step="0.01" id="edit-sale-profit" class="w-full px-3 py-2 border rounded-xl font-bold text-[16px] text-emerald-600 focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                    <label class="block text-[21px] font-medium text-slate-600 mb-1">กำไรสุทธิ (บาท)</label>
+                    <input type="number" step="0.01" id="edit-sale-profit" class="w-full px-4 py-3 border rounded-xl font-bold text-[24px] text-emerald-600 focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                 </div>
             </div>
-            <div class="flex gap-2 pt-2">
-                <button onclick="deleteSaleRecord()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-4 py-2.5 rounded-xl text-[16px] font-bold transition">ลบบิลนี้</button>
-                <button onclick="saveEditSale()" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 rounded-xl text-[16px] shadow-md">บันทึกการแก้ไข</button>
+            <div class="flex gap-2.5 pt-2">
+                <button onclick="deleteSaleRecord()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-4 py-3.5 rounded-xl text-[22px] font-bold transition">ลบบิลนี้</button>
+                <button onclick="saveEditSale()" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3.5 rounded-xl text-[22px] shadow-md">บันทึกการแก้ไข</button>
             </div>
         </div>
     </div>
 
     <div id="checkout-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="font-bold text-[18px] text-slate-800"><i class="fa-solid fa-cash-register text-cyan-600 mr-2"></i> ชำระเงินสินค้า</h3>
-                <button onclick="closeModal('checkout-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-[20px]"></i></button>
+                <h3 class="font-bold text-[26px] text-slate-800"><i class="fa-solid fa-cash-register text-cyan-600 mr-2"></i> ชำระเงินสินค้า</h3>
+                <button onclick="closeModal('checkout-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-[28px]"></i></button>
             </div>
-            <div class="space-y-3 text-[16px]">
-                <div class="bg-slate-50 p-3 rounded-xl space-y-2">
+            <div class="space-y-3 text-[24px]">
+                <div class="bg-slate-50 p-4 rounded-xl space-y-2">
                     <div class="flex justify-between text-slate-600"><span>ยอดรวมสินค้า:</span><span id="chk-subtotal" class="font-bold">0.00 ฿</span></div>
-                    <div class="flex items-center gap-2 pt-1 border-t border-slate-200">
+                    <div class="flex items-center gap-2 pt-2 border-t border-slate-200">
                         <span class="text-slate-600 whitespace-nowrap">ส่วนลด:</span>
-                        <input type="number" id="discount-val" oninput="calculateCheckoutFinal()" placeholder="0" class="w-24 px-2 py-1 border rounded-lg text-right font-bold text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-                        <select id="discount-type" onchange="calculateCheckoutFinal()" class="px-2 py-1 border rounded-lg text-[14px] bg-white">
+                        <input type="number" id="discount-val" oninput="calculateCheckoutFinal()" placeholder="0" class="w-28 px-3 py-1.5 border rounded-lg text-right font-bold text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                        <select id="discount-type" onchange="calculateCheckoutFinal()" class="px-2.5 py-1.5 border rounded-lg text-[21px] bg-white">
                             <option value="baht">บาท (฿)</option>
                             <option value="percent">เปอร์เซ็นต์ (%)</option>
                         </select>
                     </div>
                 </div>
                 <div class="bg-cyan-50 p-4 rounded-2xl text-center">
-                    <p class="text-[14px] text-cyan-700 font-medium">ยอดชำระสุทธิหลังหักส่วนลด</p>
-                    <h2 class="text-[28px] font-extrabold text-cyan-700" id="modal-grand-total">0.00 ฿</h2>
+                    <p class="text-[21px] text-cyan-700 font-medium">ยอดชำระสุทธิหลังหักส่วนลด</p>
+                    <h2 class="text-[36px] font-extrabold text-cyan-700" id="modal-grand-total">0.00 ฿</h2>
                 </div>
                 <div>
-                    <label class="block text-[14px] font-medium text-slate-600 mb-1.5">ช่องทางการชำระเงิน</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button type="button" onclick="setPaymentMethod('cash')" id="btn-pay-cash" class="py-2.5 px-3 rounded-xl font-medium text-[16px] border flex items-center justify-center space-x-2 bg-cyan-50 text-cyan-700 border-cyan-200"><i class="fa-solid fa-money-bill-wave"></i> <span>เงินสด</span></button>
-                        <button type="button" onclick="setPaymentMethod('transfer')" id="btn-pay-transfer" class="py-2.5 px-3 rounded-xl font-medium text-[16px] border flex items-center justify-center space-x-2 bg-slate-50 text-slate-600 border-slate-200"><i class="fa-solid fa-qrcode"></i> <span>โอนเงิน / QR</span></button>
+                    <label class="block text-[21px] font-medium text-slate-600 mb-1.5">ช่องทางการชำระเงิน</label>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button type="button" onclick="setPaymentMethod('cash')" id="btn-pay-cash" class="py-3.5 px-3 rounded-xl font-medium text-[23px] border flex items-center justify-center space-x-2 bg-cyan-50 text-cyan-700 border-cyan-200"><i class="fa-solid fa-money-bill-wave"></i> <span>เงินสด</span></button>
+                        <button type="button" onclick="setPaymentMethod('transfer')" id="btn-pay-transfer" class="py-3.5 px-3 rounded-xl font-medium text-[23px] border flex items-center justify-center space-x-2 bg-slate-50 text-slate-600 border-slate-200"><i class="fa-solid fa-qrcode"></i> <span>โอนเงิน / QR</span></button>
                     </div>
                 </div>
-                <div id="cash-section" class="space-y-2">
+                <div id="cash-section" class="space-y-2.5">
                     <div>
-                        <label class="block text-[14px] font-medium text-slate-600 mb-1">รับเงินมา (บาท)</label>
-                        <input type="number" id="cash-given" oninput="calculateChange()" class="w-full px-4 py-2.5 text-[20px] font-bold border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none" placeholder="0.00">
+                        <label class="block text-[21px] font-medium text-slate-600 mb-1">รับเงินมา (บาท)</label>
+                        <input type="number" id="cash-given" oninput="calculateChange()" class="w-full px-4 py-3.5 text-[28px] font-bold border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none" placeholder="0.00">
                     </div>
-                    <div class="flex justify-between items-center bg-slate-50 p-3 rounded-xl">
-                        <span class="text-[16px] font-medium text-slate-600">เงินทอน:</span>
-                        <span class="text-[20px] font-bold text-emerald-600" id="change-amount">0.00 ฿</span>
+                    <div class="flex justify-between items-center bg-slate-50 p-4 rounded-xl">
+                        <span class="text-[24px] font-medium text-slate-600">เงินทอน:</span>
+                        <span class="text-[28px] font-bold text-emerald-600" id="change-amount">0.00 ฿</span>
                     </div>
                 </div>
             </div>
-            <div class="flex gap-2 pt-2">
-                <button onclick="closeModal('checkout-modal')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-3 rounded-xl transition text-[16px]">ยกเลิก</button>
-                <button onclick="confirmCheckout()" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-cyan-200 transition text-[16px]">ยืนยันการขาย & พิมพ์บิล</button>
+            <div class="flex gap-2.5 pt-2">
+                <button onclick="closeModal('checkout-modal')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-4 rounded-xl transition text-[23px]">ยกเลิก</button>
+                <button onclick="confirmCheckout()" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-cyan-200 transition text-[23px]">ยืนยันการขาย & พิมพ์บิล</button>
             </div>
         </div>
     </div>
 
     <div id="receipt-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div id="receipt-print-area" class="bg-white p-4 rounded-xl border border-dashed border-slate-300 text-[14px] space-y-3">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div id="receipt-print-area" class="bg-white p-4 rounded-xl border border-dashed border-slate-300 text-[18px] space-y-3">
                 <div class="text-center space-y-1.5 pb-2 border-b border-dashed border-slate-300">
-                    <pre style="font-family: 'Prompt', sans-serif; font-size: 0.95rem; font-weight: bold; margin: 0; padding: 0; line-height: 1.2; color: #1e293b;">=================================</pre>
-                    <h3 class="font-bold text-[18px] text-slate-800" id="rec-store-name">ร้านเจริญวารี</h3>
-                    <pre style="font-family: 'Prompt', sans-serif; font-size: 0.95rem; font-weight: bold; margin: 0; padding: 0; line-height: 1.2; color: #1e293b;">=================================</pre>
-                    <p class="text-[12px] text-slate-500 leading-tight pt-1" id="rec-store-address">140 ถนนนิวาศวิถี ตำบลวารินชำราบ อำเภอวารินชำราบ จังหวัดอุบลราชธานี 34190 โทรศัพท์ 045-951-279</p>
-                    <p class="text-[12px] text-slate-500 pt-0.5" id="rec-store-tax">เลขประจำตัวผู้เสียภาษี: -</p>
-                    <p class="text-[12px] text-slate-400 pt-1" id="rec-date">-</p>
+                    <pre style="font-family: 'Prompt', sans-serif; font-size: 1rem; font-weight: bold; margin: 0; padding: 0; line-height: 1.2; color: #1e293b;">=================================</pre>
+                    <h3 class="font-bold text-[23px] text-slate-800" id="rec-store-name">ร้านเจริญวารี</h3>
+                    <pre style="font-family: 'Prompt', sans-serif; font-size: 1rem; font-weight: bold; margin: 0; padding: 0; line-height: 1.2; color: #1e293b;">=================================</pre>
+                    <p class="text-[15px] text-slate-500 leading-tight pt-1" id="rec-store-address">140 ถนนนิวาศวิถี ตำบลวารินชำราบ อำเภอวารินชำราบ จังหวัดอุบลราชธานี 34190 โทรศัพท์ 045-951-279</p>
+                    <p class="text-[15px] text-slate-500 pt-0.5" id="rec-store-tax">เลขประจำตัวผู้เสียภาษี: -</p>
+                    <p class="text-[15px] text-slate-400 pt-1" id="rec-date">-</p>
                 </div>
                 <div class="border-b border-slate-200 pb-2">
-                    <p class="text-[12px] text-slate-500">เลขที่บิล: <span id="rec-id" class="font-bold text-slate-800">-</span></p>
+                    <p class="text-[15px] text-slate-500">เลขที่บิล: <span id="rec-id" class="font-bold text-slate-800">-</span></p>
                 </div>
-                <div class="space-y-1.5" id="rec-items-list"></div>
-                <div class="border-t border-slate-200 pt-2 space-y-1 text-right">
+                <div class="space-y-1.5 text-[18px]" id="rec-items-list"></div>
+                <div class="border-t border-slate-200 pt-2 space-y-1 text-right text-[18px]">
                     <div class="flex justify-between"><span>รวมสินค้า:</span> <span id="rec-subtotal">0.00 ฿</span></div>
                     <div class="flex justify-between text-rose-500"><span>ส่วนลด:</span> <span id="rec-discount">0.00 ฿</span></div>
-                    <div class="flex justify-between font-bold text-[16px] text-slate-900 pt-1 border-t"><span>สุทธิ:</span> <span id="rec-grand-total">0.00 ฿</span></div>
-                    <div class="flex justify-between text-[13px] text-slate-500"><span>ชำระด้วย:</span> <span id="rec-payment-method">-</span></div>
-                    <div class="flex justify-between text-[13px] text-slate-500" id="rec-cash-box"><span>รับมา / ทอน:</span> <span id="rec-cash-change">-</span></div>
+                    <div class="flex justify-between font-bold text-[21px] text-slate-900 pt-1 border-t"><span>สุทธิ:</span> <span id="rec-grand-total">0.00 ฿</span></div>
+                    <div class="flex justify-between text-[16px] text-slate-500"><span>ชำระด้วย:</span> <span id="rec-payment-method">-</span></div>
+                    <div class="flex justify-between text-[16px] text-slate-500" id="rec-cash-box"><span>รับมา / ทอน:</span> <span id="rec-cash-change">-</span></div>
                 </div>
-                <div class="pt-4 border-t border-dashed border-slate-300 grid grid-cols-2 gap-4 text-center text-[12px] text-slate-700">
+                <div class="pt-4 border-t border-dashed border-slate-300 grid grid-cols-2 gap-4 text-center text-[15px] text-slate-700">
                     <div class="space-y-6"><p>ลงชื่อ...........................................<br>(ผู้ส่งสินค้า)</p></div>
                     <div class="space-y-6"><p>ลงชื่อ...........................................<br>(ผู้รับสินค้า)</p></div>
                 </div>
-                <div class="text-center pt-2 border-t border-dashed text-[12px] text-slate-400"><p id="rec-footer-msg">*** ขอบคุณที่ใช้บริการ ***</p></div>
+                <div class="text-center pt-2 border-t border-dashed text-[15px] text-slate-400"><p id="rec-footer-msg">*** ขอบคุณที่ใช้บริการ ***</p></div>
             </div>
-            <div class="flex gap-2 pt-2">
-                <button onclick="closeModal('receipt-modal')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-2.5 rounded-xl text-[16px]">ปิด</button>
-                <button onclick="window.print()" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 rounded-xl text-[16px] shadow-md"><i class="fa-solid fa-print mr-1"></i> พิมพ์ใบเสร็จ</button>
+            <div class="flex gap-2.5 pt-2">
+                <button onclick="closeModal('receipt-modal')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-3.5 rounded-xl text-[23px]">ปิด</button>
+                <button onclick="window.print()" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3.5 rounded-xl text-[23px] shadow-md"><i class="fa-solid fa-print mr-1"></i> พิมพ์ใบเสร็จ</button>
             </div>
         </div>
     </div>
 
     <div id="product-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="font-bold text-[18px] text-slate-800" id="product-modal-title">เพิ่มสินค้าใหม่</h3>
-                <button onclick="closeModal('product-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-[20px]"></i></button>
+                <h3 class="font-bold text-[25px] text-slate-800" id="product-modal-title">เพิ่มสินค้าใหม่</h3>
+                <button onclick="closeModal('product-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-[28px]"></i></button>
             </div>
-            <form id="product-form" onsubmit="saveProduct(event)" class="space-y-3 text-[16px]">
+            <form id="product-form" onsubmit="saveProduct(event)" class="space-y-3 text-[24px]">
                 <input type="hidden" id="edit-product-id">
-                <div><label class="block text-[14px] font-medium text-slate-600 mb-1">ชื่อสินค้า</label><input type="text" id="p-name" required class="w-full px-3 py-2 border rounded-xl text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
-                <div><label class="block text-[14px] font-medium text-slate-600 mb-1">หมวดหมู่</label><select id="p-category" class="w-full px-3 py-2 border rounded-xl text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></select></div>
+                <div><label class="block text-[21px] font-medium text-slate-600 mb-1">ชื่อสินค้า</label><input type="text" id="p-name" required class="w-full px-4 py-3 border rounded-xl text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
+                <div><label class="block text-[21px] font-medium text-slate-600 mb-1">หมวดหมู่</label><select id="p-category" class="w-full px-4 py-3 border rounded-xl text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></select></div>
                 <div class="grid grid-cols-2 gap-3">
-                    <div><label class="block text-[14px] font-medium text-slate-600 mb-1">ราคาทุน (บาท)</label><input type="number" step="0.01" id="p-cost" required class="w-full px-3 py-2 border rounded-xl text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
-                    <div><label class="block text-[14px] font-medium text-slate-600 mb-1">ราคาขาย (บาท)</label><input type="number" step="0.01" id="p-price" required class="w-full px-3 py-2 border rounded-xl text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
+                    <div><label class="block text-[21px] font-medium text-slate-600 mb-1">ราคาทุน (บาท)</label><input type="number" step="0.01" id="p-cost" required class="w-full px-4 py-3 border rounded-xl text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
+                    <div><label class="block text-[21px] font-medium text-slate-600 mb-1">ราคาขาย (บาท)</label><input type="number" step="0.01" id="p-price" required class="w-full px-4 py-3 border rounded-xl text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
-                    <div><label class="block text-[14px] font-medium text-slate-600 mb-1">จำนวนสต็อก</label><input type="number" id="p-stock" required class="w-full px-3 py-2 border rounded-xl text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
-                    <div><label class="block text-[14px] font-medium text-slate-600 mb-1">จุดเตือนสต็อกขั้นต่ำ</label><input type="number" id="p-min-stock" value="5" required class="w-full px-3 py-2 border rounded-xl text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
+                    <div><label class="block text-[21px] font-medium text-slate-600 mb-1">จำนวนสต็อก</label><input type="number" id="p-stock" required class="w-full px-4 py-3 border rounded-xl text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
+                    <div><label class="block text-[21px] font-medium text-slate-600 mb-1">จุดเตือนสต็อกขั้นต่ำ</label><input type="number" id="p-min-stock" value="5" required class="w-full px-4 py-3 border rounded-xl text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none"></div>
                 </div>
                 
                 <div>
-                    <label class="block text-[14px] font-medium text-slate-600 mb-1">การแสดงผลสินค้า (เลือกรูปภาพ หรือ อิโมจิ)</label>
+                    <label class="block text-[21px] font-medium text-slate-600 mb-1">การแสดงผลสินค้า (เลือกรูปภาพ หรือ อิโมจิ)</label>
                     <div class="flex gap-2 mb-2">
-                        <button type="button" onclick="setProductImgType('image')" id="btn-type-image" class="flex-1 py-1.5 text-[14px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-lg font-medium">อัปโหลดรูปภาพ</button>
-                        <button type="button" onclick="setProductImgType('emoji')" id="btn-type-emoji" class="flex-1 py-1.5 text-[14px] bg-slate-50 text-slate-600 border border-slate-200 rounded-lg font-medium">ใช้อิโมจิ</button>
+                        <button type="button" onclick="setProductImgType('image')" id="btn-type-image" class="flex-1 py-2.5 text-[21px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-xl font-medium">อัปโหลดรูปภาพ</button>
+                        <button type="button" onclick="setProductImgType('emoji')" id="btn-type-emoji" class="flex-1 py-2.5 text-[21px] bg-slate-50 text-slate-600 border border-slate-200 rounded-xl font-medium">ใช้อิโมจิ</button>
                     </div>
                     <input type="hidden" id="p-img-type" value="image">
                     
                     <div id="section-input-image">
-                        <input type="file" id="p-image-file" accept="image/*" class="w-full px-3 py-2 border rounded-xl text-[14px] bg-white focus:outline-none file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-[14px] file:font-semibold file:bg-cyan-50 file:text-cyan-700 hover:file:bg-cyan-100">
+                        <input type="file" id="p-image-file" accept="image/*" class="w-full px-3 py-2.5 border rounded-xl text-[19px] bg-white focus:outline-none file:mr-4 file:py-2 file:px-3.5 file:rounded-lg file:border-0 file:text-[19px] file:font-semibold file:bg-cyan-50 file:text-cyan-700 hover:file:bg-cyan-100">
                     </div>
                     <div id="section-input-emoji" class="hidden">
-                        <input type="text" id="p-emoji-val" value="🧊" placeholder="ใส่อิโมจิ เช่น 🧊, 💧" class="w-full px-3 py-2 border rounded-xl text-[16px] focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                        <input type="text" id="p-emoji-val" value="🧊" placeholder="ใส่อิโมจิ เช่น 🧊, 💧" class="w-full px-4 py-3 border rounded-xl text-[24px] focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                     </div>
                 </div>
 
-                <div class="flex gap-2 pt-3">
-                    <button type="button" onclick="closeModal('product-modal')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-xl font-medium text-[16px]">ยกเลิก</button>
-                    <button type="submit" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white py-2.5 rounded-xl font-bold shadow-md text-[16px]">บันทึก</button>
+                <div class="flex gap-2.5 pt-3">
+                    <button type="button" onclick="closeModal('product-modal')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3.5 rounded-xl font-medium text-[23px]">ยกเลิก</button>
+                    <button type="submit" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white py-3.5 rounded-xl font-bold shadow-md text-[23px]">บันทึก</button>
                 </div>
             </form>
         </div>
@@ -514,15 +521,15 @@
     <div id="category-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="font-bold text-[18px] text-slate-800">จัดการหมวดหมู่สินค้า</h3>
-                <button onclick="closeModal('category-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-[20px]"></i></button>
+                <h3 class="font-bold text-[25px] text-slate-800">จัดการหมวดหมู่สินค้า</h3>
+                <button onclick="closeModal('category-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-[28px]"></i></button>
             </div>
             <div class="space-y-3">
                 <div class="flex gap-2">
-                    <input type="text" id="new-cat-name" placeholder="ชื่อหมวดหมู่ใหม่" class="flex-1 px-3 py-2 border rounded-xl text-[16px] focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    <button onclick="addCategory()" class="bg-cyan-600 text-white px-4 py-2 rounded-xl text-[16px] font-bold shadow-md">เพิ่ม</button>
+                    <input type="text" id="new-cat-name" placeholder="ชื่อหมวดหมู่ใหม่" class="flex-1 px-4 py-3 border rounded-xl text-[24px] focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                    <button onclick="addCategory()" class="bg-cyan-600 text-white px-5 py-3 rounded-xl text-[23px] font-bold shadow-md">เพิ่ม</button>
                 </div>
-                <div id="category-list-container" class="divide-y divide-slate-100 max-h-60 overflow-y-auto border rounded-xl p-2 text-[16px]"></div>
+                <div id="category-list-container" class="divide-y divide-slate-100 max-h-60 overflow-y-auto border rounded-xl p-2 text-[23px]"></div>
             </div>
         </div>
     </div>
@@ -540,6 +547,14 @@
             console.error('Supabase initialization error:', e);
         }
 
+        const STORAGE_KEYS = {
+            CATEGORIES: 'charoenwaree_categories',
+            PRODUCTS: 'charoenwaree_products',
+            SALES: 'charoenwaree_sales',
+            CLOSINGS: 'charoenwaree_closings',
+            PROFILE: 'charoenwaree_profile'
+        };
+
         const DEFAULT_CATEGORIES = ['ทั้งหมด', 'น้ำแข็ง', 'น้ำดื่ม', 'เครื่องดื่มผสม', 'อื่นๆ'];
         const DEFAULT_PRODUCTS = [
             { id: '1', name: 'น้ำแข็งหลอดใหญ่ (กระสอบ)', category: 'น้ำแข็ง', cost: 35, price: 50, stock: 50, minStock: 10, image: '🧊' },
@@ -549,24 +564,49 @@
             { id: '5', name: 'น้ำแข็งบด (กระสอบ)', category: 'น้ำแข็ง', cost: 30, price: 45, stock: 40, minStock: 10, image: '❄️' }
         ];
 
-        let categories = JSON.parse(localStorage.getItem('charoenwaree_categories')) || DEFAULT_CATEGORIES;
-        let products = [...DEFAULT_PRODUCTS];
+        let categories = JSON.parse(localStorage.getItem(STORAGE_KEYS.CATEGORIES)) || DEFAULT_CATEGORIES;
+        let products = JSON.parse(localStorage.getItem(STORAGE_KEYS.PRODUCTS)) || [...DEFAULT_PRODUCTS];
         let cart = [];
-        let salesHistory = [];
-        let closingHistory = [];
+        let salesHistory = JSON.parse(localStorage.getItem(STORAGE_KEYS.SALES)) || [];
+        let closingHistory = JSON.parse(localStorage.getItem(STORAGE_KEYS.CLOSINGS)) || [];
         let currentCategoryFilter = 'ทั้งหมด';
         let currentAnalyticsMode = 'daily';
         let currentPaymentMethod = 'cash';
 
-        let storeProfile = JSON.parse(localStorage.getItem('charoenwaree_profile')) || {
+        let storeProfile = JSON.parse(localStorage.getItem(STORAGE_KEYS.PROFILE)) || {
             name: 'ร้านเจริญวารี',
             phone: '045-951-279',
             address: '140 ถนนนิวาศวิถี ตำบลวารินชำราบ อำเภอวารินชำราบ จังหวัดอุบลราชธานี 34190',
             tax: '-'
         };
 
+        function saveLocalBackup() {
+            try {
+                localStorage.setItem(STORAGE_KEYS.CATEGORIES, JSON.stringify(categories));
+                localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
+                localStorage.setItem(STORAGE_KEYS.SALES, JSON.stringify(salesHistory));
+                localStorage.setItem(STORAGE_KEYS.CLOSINGS, JSON.stringify(closingHistory));
+                localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(storeProfile));
+            } catch (e) {
+                console.error('LocalStorage save error:', e);
+            }
+        }
+
+        function updateSyncStatus(isOnline) {
+            const badge = document.getElementById('sync-status-badge');
+            if (!badge) return;
+            if (isOnline && navigator.onLine) {
+                badge.className = 'text-[17px] px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-300/40 text-white flex items-center gap-1.5';
+                badge.innerHTML = '<i class="fa-solid fa-cloud text-emerald-200"></i> <span>ซิงค์แล้ว</span>';
+            } else {
+                badge.className = 'text-[17px] px-3.5 py-1.5 rounded-full bg-amber-500/30 border border-amber-300/50 text-amber-100 flex items-center gap-1.5';
+                badge.innerHTML = '<i class="fa-solid fa-hard-drive text-amber-200"></i> <span>สำรองในเครื่อง</span>';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
             applyStoreProfile();
+            renderAllViews();
             await loadDataFromSupabase();
             renderPOSCategories();
             renderCart();
@@ -574,7 +614,23 @@
             if(dateInput) dateInput.valueAsDate = new Date();
             renderAnalyticsData();
             setupRealtimeSubscriptions();
+
+            window.addEventListener('online', () => {
+                updateSyncStatus(true);
+                syncLocalToSupabase();
+            });
+            window.addEventListener('offline', () => {
+                updateSyncStatus(false);
+            });
         });
+
+        function renderAllViews() {
+            checkLowStockAlerts();
+            renderPOSProducts();
+            renderStockTable();
+            renderDashboard();
+            renderAnalyticsData();
+        }
 
         function applyStoreProfile() {
             const hName = document.getElementById('header-store-name');
@@ -601,7 +657,7 @@
                 address: document.getElementById('setting-store-address').value,
                 tax: document.getElementById('setting-store-tax').value
             };
-            localStorage.setItem('charoenwaree_profile', JSON.stringify(storeProfile));
+            saveLocalBackup();
             applyStoreProfile();
             alert('บันทึกข้อมูลร้านค้าเรียบร้อยแล้ว');
         }
@@ -611,15 +667,15 @@
         }
 
         async function loadDataFromSupabase() {
-            if (!supabaseClient) {
-                checkLowStockAlerts();
-                renderPOSProducts();
-                renderStockTable();
-                renderDashboard();
+            if (!supabaseClient || !navigator.onLine) {
+                updateSyncStatus(false);
+                renderAllViews();
                 return;
             }
             try {
-                const { data: prodData } = await supabaseClient.from('products').select('*');
+                const { data: prodData, error: prodErr } = await supabaseClient.from('products').select('*');
+                if (prodErr) throw prodErr;
+
                 if (prodData && prodData.length > 0) {
                     products = prodData.map(p => ({
                         ...p,
@@ -650,17 +706,44 @@
                     }));
                 }
 
-                checkLowStockAlerts();
-                renderPOSProducts();
-                renderStockTable();
-                renderDashboard();
-                renderAnalyticsData();
+                saveLocalBackup();
+                updateSyncStatus(true);
+                renderAllViews();
             } catch (err) {
-                console.error('Error loading data:', err);
-                checkLowStockAlerts();
-                renderPOSProducts();
-                renderStockTable();
-                renderDashboard();
+                console.error('Error loading data from Supabase, using LocalStorage:', err);
+                updateSyncStatus(false);
+                renderAllViews();
+            }
+        }
+
+        async function syncLocalToSupabase() {
+            saveLocalBackup();
+            if (!supabaseClient || !navigator.onLine) {
+                updateSyncStatus(false);
+                alert('บันทึกข้อมูลสำรองลงในเครื่องเรียบร้อยแล้ว (ยังไม่มีสัญญาณอินเทอร์เน็ตสำหรับซิงค์ขึ้น Cloud)');
+                return;
+            }
+            try {
+                for (let p of products) {
+                    await supabaseClient.from('products').upsert({
+                        id: p.id, name: p.name, category: p.category, cost: p.cost, price: p.price,
+                        stock: p.stock, min_stock: p.minStock !== undefined ? p.minStock : 5, image: p.image
+                    });
+                }
+                for (let s of salesHistory) {
+                    await supabaseClient.from('sales').upsert({
+                        id: s.id, date: s.date, items: s.items, subtotal: s.subtotal || s.totalSales || 0,
+                        discount: s.discount || 0, total_sales: s.totalSales || 0, total_cost: s.totalCost || 0,
+                        profit: s.profit || 0, payment_method: s.paymentMethod || 'cash',
+                        cash_given: s.cashGiven || 0, change: s.change || 0
+                    });
+                }
+                updateSyncStatus(true);
+                alert('ซิงค์ข้อมูลสำรองจากเครื่องขึ้น Cloud เรียบร้อยแล้ว!');
+            } catch (e) {
+                console.error('Sync error:', e);
+                updateSyncStatus(false);
+                alert('เกิดข้อผิดพลาดในการซิงค์ขึ้น Cloud แต่ข้อมูลยังถูกเก็บสำรองในเครื่องแล้วครับ');
             }
         }
 
@@ -697,11 +780,14 @@
                     .channel('public:sales')
                     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'sales' }, payload => {
                         const s = payload.new;
-                        salesHistory.unshift({
-                            id: s.id, date: s.date, items: s.items, subtotal: s.subtotal, discount: s.discount,
-                            totalSales: s.total_sales, totalCost: s.total_cost, profit: s.profit,
-                            paymentMethod: s.payment_method, cashGiven: s.cash_given, change: s.change
-                        });
+                        if (!salesHistory.some(item => item.id === s.id)) {
+                            salesHistory.unshift({
+                                id: s.id, date: s.date, items: s.items, subtotal: s.subtotal, discount: s.discount,
+                                totalSales: s.total_sales, totalCost: s.total_cost, profit: s.profit,
+                                paymentMethod: s.payment_method, cashGiven: s.cash_given, change: s.change
+                            });
+                            saveLocalBackup();
+                        }
                         renderDashboard();
                         renderAnalyticsData();
                     })
@@ -717,15 +803,15 @@
                 const tab = document.getElementById(`tab-${t}`);
                 const tabM = document.getElementById(`tab-${t}-m`);
                 if(el) el.classList.add('hidden');
-                if(tab) tab.className = 'px-4 py-2 rounded-xl text-[16px] font-medium transition-all text-white hover:bg-white/10 whitespace-nowrap';
-                if(tabM) tabM.className = 'px-3 py-1.5 rounded-lg text-[14px] font-medium transition-all text-white whitespace-nowrap';
+                if(tab) tab.className = 'px-4 py-2.5 rounded-xl text-[22px] font-medium transition-all text-white hover:bg-white/10 whitespace-nowrap';
+                if(tabM) tabM.className = 'px-4 py-2 rounded-xl text-[21px] font-medium transition-all text-white whitespace-nowrap';
             });
             const targetView = document.getElementById(`view-${tabName}`);
             const targetTab = document.getElementById(`tab-${tabName}`);
             const targetTabM = document.getElementById(`tab-${tabName}-m`);
             if(targetView) targetView.classList.remove('hidden');
-            if(targetTab) targetTab.className = 'px-4 py-2 rounded-xl text-[16px] font-medium transition-all bg-white text-cyan-700 shadow whitespace-nowrap';
-            if(targetTabM) targetTabM.className = 'px-3 py-1.5 rounded-lg text-[14px] font-medium transition-all bg-white text-cyan-700 shadow whitespace-nowrap';
+            if(targetTab) targetTab.className = 'px-4 py-2.5 rounded-xl text-[22px] font-medium transition-all bg-white text-cyan-700 shadow whitespace-nowrap';
+            if(targetTabM) targetTabM.className = 'px-4 py-2 rounded-xl text-[21px] font-medium transition-all bg-white text-cyan-700 shadow whitespace-nowrap';
             if(tabName === 'dashboard') renderDashboard();
         }
 
@@ -733,7 +819,7 @@
             currentAnalyticsMode = mode;
             ['daily', 'weekly', 'monthly'].forEach(m => {
                 const btn = document.getElementById(`btn-an-${m}`);
-                if(btn) btn.className = m === mode ? 'px-3 py-1.5 text-[14px] bg-cyan-600 text-white rounded-xl font-bold shadow' : 'px-3 py-1.5 text-[14px] bg-slate-100 text-slate-600 rounded-xl font-medium';
+                if(btn) btn.className = m === mode ? 'px-4 py-2.5 text-[21px] bg-cyan-600 text-white rounded-xl font-bold shadow' : 'px-4 py-2.5 text-[21px] bg-slate-100 text-slate-600 rounded-xl font-medium';
             });
             const dateInput = document.getElementById('analytics-date-input');
             const label = document.getElementById('analytics-filter-label');
@@ -798,9 +884,9 @@
                 } else {
                     tbody.innerHTML = sortedProducts.map(([name, data]) => `
                         <tr class="border-b border-slate-100">
-                            <td class="p-3 font-medium text-slate-800">${name}</td>
-                            <td class="p-3 text-center text-cyan-600 font-bold">${data.qty} ชิ้น</td>
-                            <td class="p-3 text-right font-bold text-emerald-600">${data.total.toLocaleString()} ฿</td>
+                            <td class="p-4 font-medium text-slate-800">${name}</td>
+                            <td class="p-4 text-center text-cyan-600 font-bold">${data.qty} ชิ้น</td>
+                            <td class="p-4 text-right font-bold text-emerald-600">${data.total.toLocaleString()} ฿</td>
                         </tr>
                     `).join('');
                 }
@@ -811,7 +897,7 @@
             const container = document.getElementById('pos-category-filters');
             if(container) {
                 container.innerHTML = categories.map(cat => `
-                    <button onclick="filterCategory('${cat}')" class="px-4 py-2 rounded-xl text-[16px] font-medium whitespace-nowrap transition ${currentCategoryFilter === cat ? 'bg-cyan-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}">${cat}</button>
+                    <button onclick="filterCategory('${cat}')" class="px-5 py-3 rounded-xl text-[22px] font-medium whitespace-nowrap transition ${currentCategoryFilter === cat ? 'bg-cyan-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}">${cat}</button>
                 `).join('');
             }
             const pCat = document.getElementById('p-category');
@@ -834,7 +920,7 @@
 
             const filtered = products.filter(p => (currentCategoryFilter === 'ทั้งหมด' || p.category === currentCategoryFilter) && (p.name.toLowerCase().includes(search) || p.category.toLowerCase().includes(search)));
             if(filtered.length === 0) { 
-                grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-400 text-[16px]">ไม่พบสินค้าในระบบ</div>`; 
+                grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-400 text-[24px]">ไม่พบสินค้าในระบบ</div>`; 
                 return; 
             }
             grid.innerHTML = filtered.map((p, index) => {
@@ -844,30 +930,30 @@
                 
                 let imgDisplay = '';
                 if (p.image && (p.image.startsWith('data:image') || p.image.startsWith('http'))) {
-                    imgDisplay = `<div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto bg-slate-50 rounded-2xl overflow-hidden flex items-center justify-center p-1.5 mb-3 shadow-inner"><img src="${p.image}" class="w-full h-full object-cover rounded-xl"></div>`;
+                    imgDisplay = `<div class="w-28 h-28 mx-auto bg-slate-50 rounded-2xl overflow-hidden flex items-center justify-center p-1.5 mb-3 shadow-inner"><img src="${p.image}" class="w-full h-full object-cover rounded-xl"></div>`;
                 } else {
-                    imgDisplay = `<div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto bg-slate-50 rounded-2xl overflow-hidden flex items-center justify-center text-4xl mb-3 shadow-inner">${p.image || '🧊'}</div>`;
+                    imgDisplay = `<div class="w-28 h-28 mx-auto bg-slate-50 rounded-2xl overflow-hidden flex items-center justify-center text-6xl mb-3 shadow-inner">${p.image || '🧊'}</div>`;
                 }
 
                 return `
-                    <div class="bg-white p-4 rounded-3xl border ${isOutOfStock ? 'border-rose-200 opacity-60' : (isLowStock ? 'border-amber-300 shadow-sm' : 'border-slate-200 hover:border-cyan-500 shadow-sm')} transition relative flex flex-col justify-between">
-                        <div class="absolute top-2 left-2 flex items-center bg-slate-100 rounded-lg p-0.5 z-10 shadow-sm">
-                            <button onclick="movePOSProductOrder('${p.id}', -1)" class="w-6 h-6 flex items-center justify-center text-slate-500 hover:text-cyan-600 text-[12px]" title="เลื่อนซ้าย/ขึ้น"><i class="fa-solid fa-chevron-left"></i></button>
-                            <span class="text-[11px] font-bold text-slate-600 px-1">${index + 1}</span>
-                            <button onclick="movePOSProductOrder('${p.id}', 1)" class="w-6 h-6 flex items-center justify-center text-slate-500 hover:text-cyan-600 text-[12px]" title="เลื่อนขวา/ลง"><i class="fa-solid fa-chevron-right"></i></button>
+                    <div class="bg-white p-5 rounded-3xl border ${isOutOfStock ? 'border-rose-200 opacity-60' : (isLowStock ? 'border-amber-300 shadow-sm' : 'border-slate-200 hover:border-cyan-500 shadow-sm')} transition relative flex flex-col justify-between">
+                        <div class="absolute top-3 left-3 flex items-center bg-slate-100 rounded-xl p-1 z-10 shadow-sm">
+                            <button onclick="movePOSProductOrder('${p.id}', -1)" class="w-8 h-8 flex items-center justify-center text-slate-500 hover:text-cyan-600 text-[16px]" title="เลื่อนซ้าย/ขึ้น"><i class="fa-solid fa-chevron-left"></i></button>
+                            <span class="text-[16px] font-bold text-slate-600 px-1.5">${index + 1}</span>
+                            <button onclick="movePOSProductOrder('${p.id}', 1)" class="w-8 h-8 flex items-center justify-center text-slate-500 hover:text-cyan-600 text-[16px]" title="เลื่อนขวา/ลง"><i class="fa-solid fa-chevron-right"></i></button>
                         </div>
 
                         <div onclick="${isOutOfStock ? '' : `addToCart('${p.id}')`}" class="${isOutOfStock ? 'cursor-not-allowed' : 'cursor-pointer'}">
-                            ${inCart ? `<span class="absolute top-3 right-3 bg-cyan-600 text-white text-[12px] px-2.5 py-0.5 rounded-full font-bold shadow">ในตะกร้า: ${inCart.qty}</span>` : ''}
-                            <div class="mt-4">
+                            ${inCart ? `<span class="absolute top-3 right-3 bg-cyan-600 text-white text-[16px] px-3 py-1 rounded-full font-bold shadow">ในตะกร้า: ${inCart.qty}</span>` : ''}
+                            <div class="mt-8">
                                 ${imgDisplay}
-                                <h4 class="font-bold text-slate-800 text-[16px] line-clamp-1 mb-0.5">${p.name}</h4>
-                                <p class="text-[14px] text-slate-400 mb-2">${p.category}</p>
+                                <h4 class="font-bold text-slate-800 text-[24px] line-clamp-2 leading-snug mb-1">${p.name}</h4>
+                                <p class="text-[19px] text-slate-400 mb-2">${p.category}</p>
                             </div>
                         </div>
-                        <div class="pt-2 border-t border-slate-100 flex justify-between items-center" onclick="${isOutOfStock ? '' : `addToCart('${p.id}')`}">
-                            <span class="text-cyan-600 font-extrabold text-[17px]">${p.price} ฿</span>
-                            <span class="text-[13px] ${isOutOfStock ? 'text-rose-500 font-bold' : (isLowStock ? 'text-amber-600 font-bold' : 'text-slate-500')}">คงเหลือ: ${p.stock}</span>
+                        <div class="pt-3 border-t border-slate-100 flex justify-between items-center" onclick="${isOutOfStock ? '' : `addToCart('${p.id}')`}">
+                            <span class="text-cyan-600 font-extrabold text-[26px]">${p.price} ฿</span>
+                            <span class="text-[20px] ${isOutOfStock ? 'text-rose-500 font-bold' : (isLowStock ? 'text-amber-600 font-bold' : 'text-slate-500')}">เหลือ: ${p.stock}</span>
                         </div>
                     </div>
                 `;
@@ -884,6 +970,7 @@
             products[index] = products[newIndex];
             products[newIndex] = temp;
 
+            saveLocalBackup();
             renderPOSProducts();
             renderStockTable();
         }
@@ -968,20 +1055,20 @@
             const list = document.getElementById('cart-items-list');
             if(list) {
                 if(cart.length === 0) { 
-                    list.innerHTML = `<div class="py-12 text-center text-slate-400 text-[16px]">ยังไม่มีสินค้าในตะกร้า</div>`; 
+                    list.innerHTML = `<div class="py-12 text-center text-slate-400 text-[24px]">ยังไม่มีสินค้าในตะกร้า</div>`; 
                 } else {
                     list.innerHTML = cart.map((item, index) => `
-                        <div class="py-2.5 flex items-center justify-between gap-2">
+                        <div class="py-3.5 flex items-center justify-between gap-2">
                             <div class="flex flex-col items-center justify-center">
-                                <button onclick="updateCartItemOrder(${index}, -1)" class="text-slate-400 hover:text-cyan-600 text-[10px] leading-none" title="เลื่อนขึ้น"><i class="fa-solid fa-chevron-up"></i></button>
-                                <span class="text-[12px] font-bold text-slate-500 my-0.5">${index + 1}</span>
-                                <button onclick="updateCartItemOrder(${index}, 1)" class="text-slate-400 hover:text-cyan-600 text-[10px] leading-none" title="เลื่อนลง"><i class="fa-solid fa-chevron-down"></i></button>
+                                <button onclick="updateCartItemOrder(${index}, -1)" class="text-slate-400 hover:text-cyan-600 text-[15px] leading-none p-0.5" title="เลื่อนขึ้น"><i class="fa-solid fa-chevron-up"></i></button>
+                                <span class="text-[16px] font-bold text-slate-500 my-0.5">${index + 1}</span>
+                                <button onclick="updateCartItemOrder(${index}, 1)" class="text-slate-400 hover:text-cyan-600 text-[15px] leading-none p-0.5" title="เลื่อนลง"><i class="fa-solid fa-chevron-down"></i></button>
                             </div>
-                            <div class="flex-1 pr-1"><h5 class="font-bold text-slate-800 text-[16px] line-clamp-1">${item.name}</h5><p class="text-[14px] text-cyan-600 font-medium">${item.price} ฿</p></div>
+                            <div class="flex-1 pr-1"><h5 class="font-bold text-slate-800 text-[22px] line-clamp-1">${item.name}</h5><p class="text-[20px] text-cyan-600 font-medium">${item.price} ฿</p></div>
                             <div class="flex items-center space-x-1.5">
-                                <button onclick="updateCartQty('${item.id}', -1)" class="w-7 h-7 bg-slate-100 rounded-lg text-[16px] font-bold">-</button>
-                                <input type="number" value="${item.qty}" onchange="setDirectCartQty('${item.id}', this.value)" class="w-12 text-center text-[16px] border rounded py-0.5">
-                                <button onclick="updateCartQty('${item.id}', 1)" class="w-7 h-7 bg-slate-100 rounded-lg text-[16px] font-bold">+</button>
+                                <button onclick="updateCartQty('${item.id}', -1)" class="w-10 h-10 bg-slate-100 rounded-xl text-[24px] font-bold">-</button>
+                                <input type="number" value="${item.qty}" onchange="setDirectCartQty('${item.id}', this.value)" class="w-16 text-center text-[24px] font-bold border rounded-xl py-1">
+                                <button onclick="updateCartQty('${item.id}', 1)" class="w-10 h-10 bg-slate-100 rounded-xl text-[24px] font-bold">+</button>
                             </div>
                         </div>
                     `).join('');
@@ -1019,8 +1106,8 @@
             const btnTransfer = document.getElementById('btn-pay-transfer');
             const cashSec = document.getElementById('cash-section');
 
-            if(btnCash) btnCash.className = method === 'cash' ? 'py-2.5 px-3 rounded-xl font-medium text-[16px] border flex items-center justify-center space-x-2 bg-cyan-50 text-cyan-700 border-cyan-200' : 'py-2.5 px-3 rounded-xl font-medium text-[16px] border flex items-center justify-center space-x-2 bg-slate-50 text-slate-600 border-slate-200';
-            if(btnTransfer) btnTransfer.className = method === 'transfer' ? 'py-2.5 px-3 rounded-xl font-medium text-[16px] border flex items-center justify-center space-x-2 bg-cyan-50 text-cyan-700 border-cyan-200' : 'py-2.5 px-3 rounded-xl font-medium text-[16px] border flex items-center justify-center space-x-2 bg-slate-50 text-slate-600 border-slate-200';
+            if(btnCash) btnCash.className = method === 'cash' ? 'py-3.5 px-3 rounded-xl font-medium text-[23px] border flex items-center justify-center space-x-2 bg-cyan-50 text-cyan-700 border-cyan-200' : 'py-3.5 px-3 rounded-xl font-medium text-[23px] border flex items-center justify-center space-x-2 bg-slate-50 text-slate-600 border-slate-200';
+            if(btnTransfer) btnTransfer.className = method === 'transfer' ? 'py-3.5 px-3 rounded-xl font-medium text-[23px] border flex items-center justify-center space-x-2 bg-cyan-50 text-cyan-700 border-cyan-200' : 'py-3.5 px-3 rounded-xl font-medium text-[23px] border flex items-center justify-center space-x-2 bg-slate-50 text-slate-600 border-slate-200';
             if(cashSec) cashSec.classList.toggle('hidden', method !== 'cash');
         }
 
@@ -1067,9 +1154,6 @@
                 const prod = products.find(p => p.id === cartItem.id);
                 if(prod) {
                     prod.stock -= cartItem.qty;
-                    if(supabaseClient) {
-                        await supabaseClient.from('products').update({ stock: prod.stock }).eq('id', prod.id);
-                    }
                 }
             }
 
@@ -1087,13 +1171,30 @@
                 change: change
             };
 
-            if(supabaseClient) {
-                await supabaseClient.from('sales').insert([saleRecord]);
-            }
-            salesHistory.unshift({
+            const localSale = {
                 id: saleRecord.id, date: saleRecord.date, items: saleRecord.items, subtotal, discount,
                 totalSales: grandTotal, totalCost, profit, paymentMethod: currentPaymentMethod, cashGiven: given, change
-            });
+            };
+            salesHistory.unshift(localSale);
+            saveLocalBackup();
+
+            if(supabaseClient && navigator.onLine) {
+                try {
+                    for(let cartItem of cart) {
+                        const prod = products.find(p => p.id === cartItem.id);
+                        if(prod) {
+                            await supabaseClient.from('products').update({ stock: prod.stock }).eq('id', prod.id);
+                        }
+                    }
+                    await supabaseClient.from('sales').insert([saleRecord]);
+                    updateSyncStatus(true);
+                } catch (e) {
+                    console.error('Failed to sync sale to Supabase, saved locally:', e);
+                    updateSyncStatus(false);
+                }
+            } else {
+                updateSyncStatus(false);
+            }
 
             checkLowStockAlerts();
             cart = [];
@@ -1149,8 +1250,8 @@
             const secRange = document.getElementById('export-range-section');
             const secMonth = document.getElementById('export-month-section');
 
-            if(btnRange) btnRange.className = isRange ? 'flex-1 py-1.5 text-[14px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-lg font-medium' : 'flex-1 py-1.5 text-[14px] bg-slate-50 text-slate-600 border border-slate-200 rounded-lg font-medium';
-            if(btnMonth) btnMonth.className = !isRange ? 'flex-1 py-1.5 text-[14px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-lg font-medium' : 'flex-1 py-1.5 text-[14px] bg-slate-50 text-slate-600 border border-slate-200 rounded-lg font-medium';
+            if(btnRange) btnRange.className = isRange ? 'flex-1 py-2.5 text-[21px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-xl font-medium' : 'flex-1 py-2.5 text-[21px] bg-slate-50 text-slate-600 border border-slate-200 rounded-xl font-medium';
+            if(btnMonth) btnMonth.className = !isRange ? 'flex-1 py-2.5 text-[21px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-xl font-medium' : 'flex-1 py-2.5 text-[21px] bg-slate-50 text-slate-600 border border-slate-200 rounded-xl font-medium';
             if(secRange) secRange.classList.toggle('hidden', !isRange);
             if(secMonth) secMonth.classList.toggle('hidden', isRange);
         }
@@ -1215,11 +1316,15 @@
             const newTotal = totInput ? parseFloat(totInput.value) || 0 : 0;
             const newProfit = profInput ? parseFloat(profInput.value) || 0 : 0;
 
-            if(supabaseClient) {
-                await supabaseClient.from('sales').update({ total_sales: newTotal, profit: newProfit }).eq('id', id);
-            }
             const sale = salesHistory.find(s => s.id === id);
             if(sale) { sale.totalSales = newTotal; sale.profit = newProfit; }
+            saveLocalBackup();
+
+            if(supabaseClient && navigator.onLine) {
+                try {
+                    await supabaseClient.from('sales').update({ total_sales: newTotal, profit: newProfit }).eq('id', id);
+                } catch (e) { console.error(e); }
+            }
 
             closeModal('edit-sale-modal');
             renderDashboard();
@@ -1232,10 +1337,13 @@
             const id = idInput.value;
 
             if(confirm('ต้องการลบประวัติบิลนี้ใช่หรือไม่?')) {
-                if(supabaseClient) {
-                    await supabaseClient.from('sales').delete().eq('id', id);
-                }
                 salesHistory = salesHistory.filter(s => s.id !== id);
+                saveLocalBackup();
+                if(supabaseClient && navigator.onLine) {
+                    try {
+                        await supabaseClient.from('sales').delete().eq('id', id);
+                    } catch (e) { console.error(e); }
+                }
                 closeModal('edit-sale-modal');
                 renderDashboard();
                 alert('ลบรายการบิลเรียบร้อยแล้ว');
@@ -1266,12 +1374,16 @@
 
             if (confirm(`คุณต้องการลบบิลที่เลือกจำนวน ${checkedBoxes.length} รายการ ใช่หรือไม่?`)) {
                 const idsToDelete = Array.from(checkedBoxes).map(cb => cb.value);
-                for (let id of idsToDelete) {
-                    if(supabaseClient) {
-                        await supabaseClient.from('sales').delete().eq('id', id);
-                    }
-                }
                 salesHistory = salesHistory.filter(s => !idsToDelete.includes(s.id));
+                saveLocalBackup();
+
+                if(supabaseClient && navigator.onLine) {
+                    try {
+                        for (let id of idsToDelete) {
+                            await supabaseClient.from('sales').delete().eq('id', id);
+                        }
+                    } catch (e) { console.error(e); }
+                }
                 const selectAll = document.getElementById('select-all-sales');
                 if(selectAll) selectAll.checked = false;
                 renderDashboard();
@@ -1281,10 +1393,13 @@
 
         async function clearAllData() {
             if(confirm('⚠️ คำเตือน: คุณต้องการล้างประวัติการขายทั้งหมดใช่หรือไม่?')) {
-                if(supabaseClient) {
-                    await supabaseClient.from('sales').delete().neq('id', '0');
-                }
                 salesHistory = [];
+                saveLocalBackup();
+                if(supabaseClient && navigator.onLine) {
+                    try {
+                        await supabaseClient.from('sales').delete().neq('id', '0');
+                    } catch (e) { console.error(e); }
+                }
                 renderDashboard();
                 alert('ล้างประวัติการขายเรียบร้อยแล้ว');
             }
@@ -1308,41 +1423,41 @@
                 
                 let badge = '';
                 if (p.stock <= 0) {
-                    badge = `<span class="px-2.5 py-1 rounded-full text-[14px] font-bold bg-rose-50 text-rose-600">หมดสต็อก</span>`;
+                    badge = `<span class="px-3.5 py-1.5 rounded-full text-[20px] font-bold bg-rose-50 text-rose-600">หมดสต็อก</span>`;
                 } else if (p.stock <= minS) {
-                    badge = `<span class="px-2.5 py-1 rounded-full text-[14px] font-bold bg-amber-50 text-amber-600" title="ต่ำกว่าจุดเตือน (${minS})">ใกล้หมด (${p.stock})</span>`;
+                    badge = `<span class="px-3.5 py-1.5 rounded-full text-[20px] font-bold bg-amber-50 text-amber-600" title="ต่ำกว่าจุดเตือน (${minS})">ใกล้หมด (${p.stock})</span>`;
                 } else {
-                    badge = `<span class="px-2.5 py-1 rounded-full text-[14px] font-bold bg-emerald-50 text-emerald-600">${p.stock} ชิ้น</span>`;
+                    badge = `<span class="px-3.5 py-1.5 rounded-full text-[20px] font-bold bg-emerald-50 text-emerald-600">${p.stock} ชิ้น</span>`;
                 }
                 
                 let imgThumb = '';
                 if (p.image && (p.image.startsWith('data:image') || p.image.startsWith('http'))) {
-                    imgThumb = `<div class="w-[30px] h-[30px] bg-slate-50 rounded-lg overflow-hidden flex items-center justify-center p-0.5"><img src="${p.image}" class="w-full h-full object-cover"></div>`;
+                    imgThumb = `<div class="w-12 h-12 bg-slate-50 rounded-xl overflow-hidden flex items-center justify-center p-0.5 flex-shrink-0"><img src="${p.image}" class="w-full h-full object-cover"></div>`;
                 } else {
-                    imgThumb = `<div class="w-[30px] h-[30px] bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center text-sm">${p.image || '🧊'}</div>`;
+                    imgThumb = `<div class="w-12 h-12 bg-slate-100 rounded-xl overflow-hidden flex items-center justify-center text-2xl flex-shrink-0">${p.image || '🧊'}</div>`;
                 }
 
                 return `
                     <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-                        <td class="p-3 text-center">
-                            <div class="flex items-center justify-center space-x-1">
+                        <td class="p-4 text-center">
+                            <div class="flex items-center justify-center space-x-1.5">
                                 <span class="font-bold text-slate-700">${index + 1}</span>
                                 <div class="flex flex-col">
-                                    <button onclick="movePOSProductOrder('${p.id}', -1)" class="text-slate-400 hover:text-cyan-600 text-[10px] leading-none"><i class="fa-solid fa-chevron-up"></i></button>
-                                    <button onclick="movePOSProductOrder('${p.id}', 1)" class="text-slate-400 hover:text-cyan-600 text-[10px] leading-none"><i class="fa-solid fa-chevron-down"></i></button>
+                                    <button onclick="movePOSProductOrder('${p.id}', -1)" class="text-slate-400 hover:text-cyan-600 text-[14px] leading-none p-0.5"><i class="fa-solid fa-chevron-up"></i></button>
+                                    <button onclick="movePOSProductOrder('${p.id}', 1)" class="text-slate-400 hover:text-cyan-600 text-[14px] leading-none p-0.5"><i class="fa-solid fa-chevron-down"></i></button>
                                 </div>
                             </div>
                         </td>
-                        <td class="p-3 flex items-center space-x-3">${imgThumb}<div><p class="font-bold text-slate-800 text-[16px]">${p.name}</p></div></td>
-                        <td class="p-3 text-slate-600 text-[16px]">${p.category}</td>
-                        <td class="p-3 text-right text-slate-600 text-[16px]">${p.cost.toLocaleString()} ฿</td>
-                        <td class="p-3 text-right text-cyan-600 font-bold text-[16px]">${p.price.toLocaleString()} ฿</td>
-                        <td class="p-3 text-right text-emerald-600 text-[16px]">${profitPerItem.toLocaleString()} ฿ (${margin}%)</td>
-                        <td class="p-3 text-center">${badge}</td>
-                        <td class="p-3 text-center space-x-1">
-                            <button onclick="restockProduct('${p.id}')" class="p-2 bg-emerald-50 text-emerald-600 rounded-lg text-[14px]" title="เติมสต็อก"><i class="fa-solid fa-plus"></i></button>
-                            <button onclick="openProductModal('${p.id}')" class="p-2 bg-slate-100 text-slate-600 rounded-lg text-[14px]" title="แก้ไข"><i class="fa-solid fa-pen"></i></button>
-                            <button onclick="deleteProduct('${p.id}')" class="p-2 bg-rose-50 text-rose-600 rounded-lg text-[14px]" title="ลบ"><i class="fa-solid fa-trash"></i></button>
+                        <td class="p-4 flex items-center space-x-3">${imgThumb}<div><p class="font-bold text-slate-800 text-[23px]">${p.name}</p></div></td>
+                        <td class="p-4 text-slate-600 text-[22px]">${p.category}</td>
+                        <td class="p-4 text-right text-slate-600 text-[22px]">${p.cost.toLocaleString()} ฿</td>
+                        <td class="p-4 text-right text-cyan-600 font-bold text-[23px]">${p.price.toLocaleString()} ฿</td>
+                        <td class="p-4 text-right text-emerald-600 text-[22px]">${profitPerItem.toLocaleString()} ฿ (${margin}%)</td>
+                        <td class="p-4 text-center">${badge}</td>
+                        <td class="p-4 text-center space-x-1.5 whitespace-nowrap">
+                            <button onclick="restockProduct('${p.id}')" class="p-3 bg-emerald-50 text-emerald-600 rounded-xl text-[20px]" title="เติมสต็อก"><i class="fa-solid fa-plus"></i></button>
+                            <button onclick="openProductModal('${p.id}')" class="p-3 bg-slate-100 text-slate-600 rounded-xl text-[20px]" title="แก้ไข"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteProduct('${p.id}')" class="p-3 bg-rose-50 text-rose-600 rounded-xl text-[20px]" title="ลบ"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
@@ -1355,8 +1470,11 @@
             const add = prompt(`เติมสต็อก: ${p.name}`, '10');
             if(add && !isNaN(add)) {
                 p.stock += parseInt(add);
-                if(supabaseClient) {
-                    await supabaseClient.from('products').update({ stock: p.stock }).eq('id', p.id);
+                saveLocalBackup();
+                if(supabaseClient && navigator.onLine) {
+                    try {
+                        await supabaseClient.from('products').update({ stock: p.stock }).eq('id', p.id);
+                    } catch (e) { console.error(e); }
                 }
                 checkLowStockAlerts();
                 renderStockTable(); 
@@ -1366,10 +1484,13 @@
 
         async function deleteProduct(id) {
             if(confirm('ต้องการลบสินค้านี้?')) {
-                if(supabaseClient) {
-                    await supabaseClient.from('products').delete().eq('id', id);
-                }
                 products = products.filter(p => p.id !== id);
+                saveLocalBackup();
+                if(supabaseClient && navigator.onLine) {
+                    try {
+                        await supabaseClient.from('products').delete().eq('id', id);
+                    } catch (e) { console.error(e); }
+                }
                 checkLowStockAlerts();
                 renderStockTable(); 
                 renderPOSProducts();
@@ -1385,8 +1506,8 @@
             const secImg = document.getElementById('section-input-image');
             const secEmoji = document.getElementById('section-input-emoji');
 
-            if(btnImg) btnImg.className = isImg ? 'flex-1 py-1.5 text-[14px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-lg font-medium' : 'flex-1 py-1.5 text-[14px] bg-slate-50 text-slate-600 border border-slate-200 rounded-lg font-medium';
-            if(btnEmoji) btnEmoji.className = !isImg ? 'flex-1 py-1.5 text-[14px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-lg font-medium' : 'flex-1 py-1.5 text-[14px] bg-slate-50 text-slate-600 border border-slate-200 rounded-lg font-medium';
+            if(btnImg) btnImg.className = isImg ? 'flex-1 py-2.5 text-[21px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-xl font-medium' : 'flex-1 py-2.5 text-[21px] bg-slate-50 text-slate-600 border border-slate-200 rounded-xl font-medium';
+            if(btnEmoji) btnEmoji.className = !isImg ? 'flex-1 py-2.5 text-[21px] bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-xl font-medium' : 'flex-1 py-2.5 text-[21px] bg-slate-50 text-slate-600 border border-slate-200 rounded-xl font-medium';
             if(secImg) secImg.classList.toggle('hidden', !isImg);
             if(secEmoji) secEmoji.classList.toggle('hidden', isImg);
         }
@@ -1483,18 +1604,24 @@
                 const p = products.find(i => i.id === id);
                 if(p) {
                     Object.assign(p, { name, category, cost, price, stock, minStock, image });
-                    if(supabaseClient) {
-                        await supabaseClient.from('products').update({ name, category, cost, price, stock, min_stock: minStock, image }).eq('id', id);
+                    saveLocalBackup();
+                    if(supabaseClient && navigator.onLine) {
+                        try {
+                            await supabaseClient.from('products').update({ name, category, cost, price, stock, min_stock: minStock, image }).eq('id', id);
+                        } catch (e) { console.error(e); }
                     }
                 }
             } else {
                 const newProd = { id: 'P-' + Date.now().toString().slice(-4), name, category, cost, price, stock, minStock, image };
-                if(supabaseClient) {
-                    await supabaseClient.from('products').insert([{
-                        id: newProd.id, name, category, cost, price, stock, min_stock: minStock, image
-                    }]);
-                }
                 products.push(newProd);
+                saveLocalBackup();
+                if(supabaseClient && navigator.onLine) {
+                    try {
+                        await supabaseClient.from('products').insert([{
+                            id: newProd.id, name, category, cost, price, stock, min_stock: minStock, image
+                        }]);
+                    } catch (e) { console.error(e); }
+                }
             }
             checkLowStockAlerts();
             renderStockTable(); 
@@ -1519,13 +1646,13 @@
             }
 
             container.innerHTML = editableCats.map((cat, index) => `
-                <div class="py-2.5 flex justify-between items-center text-[16px]">
+                <div class="py-3.5 flex justify-between items-center text-[23px]">
                     <span class="font-medium text-slate-700">${cat}</span>
-                    <div class="flex items-center space-x-1">
-                        <button onclick="moveCategoryOrder(${index}, -1)" class="p-1.5 text-slate-400 hover:text-cyan-600 text-[14px]" title="เลื่อนขึ้น"><i class="fa-solid fa-arrow-up"></i></button>
-                        <button onclick="moveCategoryOrder(${index}, 1)" class="p-1.5 text-slate-400 hover:text-cyan-600 text-[14px]" title="เลื่อนลง"><i class="fa-solid fa-arrow-down"></i></button>
-                        <button onclick="editCategory('${cat}')" class="p-1.5 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200 text-[14px]" title="แก้ไขชื่อ"><i class="fa-solid fa-pen"></i></button>
-                        <button onclick="deleteCategory('${cat}')" class="p-1.5 bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-100 text-[14px]" title="ลบ"><i class="fa-solid fa-trash"></i></button>
+                    <div class="flex items-center space-x-1.5">
+                        <button onclick="moveCategoryOrder(${index}, -1)" class="p-2.5 text-slate-400 hover:text-cyan-600 text-[20px]" title="เลื่อนขึ้น"><i class="fa-solid fa-arrow-up"></i></button>
+                        <button onclick="moveCategoryOrder(${index}, 1)" class="p-2.5 text-slate-400 hover:text-cyan-600 text-[20px]" title="เลื่อนลง"><i class="fa-solid fa-arrow-down"></i></button>
+                        <button onclick="editCategory('${cat}')" class="p-2.5 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200 text-[20px]" title="แก้ไขชื่อ"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteCategory('${cat}')" class="p-2.5 bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-100 text-[20px]" title="ลบ"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
             `).join('');
@@ -1538,7 +1665,7 @@
             if(name && !categories.includes(name)) { 
                 categories.push(name); 
                 catInput.value = ''; 
-                saveCategoriesToLocalStorage();
+                saveLocalBackup();
                 renderCategoryList(); 
                 renderPOSCategories(); 
             }
@@ -1558,7 +1685,7 @@
                     products.forEach(p => {
                         if(p.category === oldName) p.category = trimmed;
                     });
-                    saveCategoriesToLocalStorage();
+                    saveLocalBackup();
                     renderCategoryList();
                     renderPOSCategories();
                     renderStockTable();
@@ -1574,7 +1701,7 @@
                     if(p.category === catName) p.category = 'อื่นๆ';
                 });
                 if(!categories.includes('อื่นๆ')) categories.push('อื่นๆ');
-                saveCategoriesToLocalStorage();
+                saveLocalBackup();
                 renderCategoryList();
                 renderPOSCategories();
                 renderStockTable();
@@ -1598,13 +1725,9 @@
             categories[originalIndex] = categories[newOriginalIndex];
             categories[newOriginalIndex] = temp;
 
-            saveCategoriesToLocalStorage();
+            saveLocalBackup();
             renderCategoryList();
             renderPOSCategories();
-        }
-
-        function saveCategoriesToLocalStorage() {
-            localStorage.setItem('charoenwaree_categories', JSON.stringify(categories));
         }
 
         function renderDashboard() {
@@ -1627,16 +1750,16 @@
             if(salesTbody) {
                 salesTbody.innerHTML = salesHistory.length === 0 ? `<tr><td colspan="5" class="py-6 text-center text-slate-400">ยังไม่มีประวัติการขาย</td></tr>` : salesHistory.map(s => `
                     <tr class="border-b border-slate-100 hover:bg-slate-50">
-                        <td class="py-2.5 text-center"><input type="checkbox" value="${s.id}" onchange="updateSelectedSalesCount()" class="sale-checkbox w-4 h-4 accent-cyan-600 rounded cursor-pointer"></td>
-                        <td class="py-2.5 cursor-pointer" onclick='openReceiptModal(${JSON.stringify(s)})'>
+                        <td class="py-3.5 text-center"><input type="checkbox" value="${s.id}" onchange="updateSelectedSalesCount()" class="sale-checkbox w-6 h-6 accent-cyan-600 rounded cursor-pointer"></td>
+                        <td class="py-3.5 cursor-pointer" onclick='openReceiptModal(${JSON.stringify(s)})'>
                             <div class="font-medium text-slate-800">${new Date(s.date).toLocaleString('th-TH')}</div>
-                            <div class="text-[12px] text-cyan-600">${s.id} (คลิกดูบิล)</div>
+                            <div class="text-[17px] text-cyan-600">${s.id} (คลิกดูบิล)</div>
                         </td>
-                        <td class="py-2.5 text-right font-bold text-cyan-600">${(s.totalSales || s.total_sales || 0).toLocaleString()} ฿</td>
-                        <td class="py-2.5 text-right font-bold text-emerald-600">${(s.profit || 0).toLocaleString()} ฿</td>
-                        <td class="py-2.5 text-center space-x-1">
-                            <button onclick='openReceiptModal(${JSON.stringify(s)})' class="p-1.5 bg-cyan-50 text-cyan-600 rounded text-[14px]" title="พิมพ์บิล"><i class="fa-solid fa-print"></i></button>
-                            <button onclick="openEditSaleModal('${s.id}')" class="p-1.5 bg-slate-100 text-slate-600 rounded text-[14px]" title="แก้ไข"><i class="fa-solid fa-pen"></i></button>
+                        <td class="py-3.5 text-right font-bold text-cyan-600">${(s.totalSales || s.total_sales || 0).toLocaleString()} ฿</td>
+                        <td class="py-3.5 text-right font-bold text-emerald-600">${(s.profit || 0).toLocaleString()} ฿</td>
+                        <td class="py-3.5 text-center space-x-1.5 whitespace-nowrap">
+                            <button onclick='openReceiptModal(${JSON.stringify(s)})' class="p-2.5 bg-cyan-50 text-cyan-600 rounded-lg text-[20px]" title="พิมพ์บิล"><i class="fa-solid fa-print"></i></button>
+                            <button onclick="openEditSaleModal('${s.id}')" class="p-2.5 bg-slate-100 text-slate-600 rounded-lg text-[20px]" title="แก้ไข"><i class="fa-solid fa-pen"></i></button>
                         </td>
                     </tr>
                 `).join('');
@@ -1646,10 +1769,10 @@
             if(closingTbody) {
                 closingTbody.innerHTML = closingHistory.length === 0 ? `<tr><td colspan="4" class="py-6 text-center text-slate-400">ยังไม่มีประวัติปิดยอด</td></tr>` : closingHistory.map(c => `
                     <tr class="border-b border-slate-100">
-                        <td class="py-2 font-medium text-slate-800">${c.type}: ${c.period}</td>
-                        <td class="py-2 text-center text-slate-600">${c.count} บิล</td>
-                        <td class="py-2 text-right font-bold text-cyan-600">${(c.totalSales || 0).toLocaleString()} ฿</td>
-                        <td class="py-2 text-right font-bold text-emerald-600">${(c.totalProfit || 0).toLocaleString()} ฿</td>
+                        <td class="py-3.5 font-medium text-slate-800">${c.type}: ${c.period}</td>
+                        <td class="py-3.5 text-center text-slate-600">${c.count} บิล</td>
+                        <td class="py-3.5 text-right font-bold text-cyan-600">${(c.totalSales || 0).toLocaleString()} ฿</td>
+                        <td class="py-3.5 text-right font-bold text-emerald-600">${(c.totalProfit || 0).toLocaleString()} ฿</td>
                     </tr>
                 `).join('');
             }
@@ -1664,10 +1787,15 @@
             const totalSales = todaySales.reduce((sum, s) => sum + (s.totalSales || s.total_sales || 0), 0);
             const totalProfit = todaySales.reduce((sum, s) => sum + (s.profit || 0), 0);
             
-            if(supabaseClient) {
-                await supabaseClient.from('closings').insert([{ type: 'รายวัน', period: todayStr, count: todaySales.length, total_sales: totalSales, total_profit: totalProfit }]);
+            const closingObj = { type: 'รายวัน', period: todayStr, count: todaySales.length, totalSales, totalProfit };
+            closingHistory.unshift(closingObj);
+            saveLocalBackup();
+
+            if(supabaseClient && navigator.onLine) {
+                try {
+                    await supabaseClient.from('closings').insert([{ type: 'รายวัน', period: todayStr, count: todaySales.length, total_sales: totalSales, total_profit: totalProfit }]);
+                } catch (e) { console.error(e); }
             }
-            closingHistory.unshift({ type: 'รายวัน', period: todayStr, count: todaySales.length, totalSales, totalProfit });
             renderDashboard(); 
             alert('ปิดรอบประจำวันสำเร็จ!');
         }
@@ -1678,10 +1806,15 @@
             const totalSales = salesHistory.reduce((sum, s) => sum + (s.totalSales || s.total_sales || 0), 0);
             const totalProfit = salesHistory.reduce((sum, s) => sum + (s.profit || 0), 0);
             
-            if(supabaseClient) {
-                await supabaseClient.from('closings').insert([{ type: 'รายเดือน', period: monthStr, count: salesHistory.length, total_sales: totalSales, total_profit: totalProfit }]);
+            const closingObj = { type: 'รายเดือน', period: monthStr, count: salesHistory.length, totalSales, totalProfit };
+            closingHistory.unshift(closingObj);
+            saveLocalBackup();
+
+            if(supabaseClient && navigator.onLine) {
+                try {
+                    await supabaseClient.from('closings').insert([{ type: 'รายเดือน', period: monthStr, count: salesHistory.length, total_sales: totalSales, total_profit: totalProfit }]);
+                } catch (e) { console.error(e); }
             }
-            closingHistory.unshift({ type: 'รายเดือน', period: monthStr, count: salesHistory.length, totalSales, totalProfit });
             renderDashboard(); 
             alert('ปิดรอบประจำเดือนสำเร็จ!');
         }
