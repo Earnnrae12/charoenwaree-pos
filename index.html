@@ -86,7 +86,7 @@
 
             <!-- Cart Sidebar -->
             <div id="cart-sidebar" class="w-full md:w-[320px] lg:w-[390px] bg-white border-l border-slate-200 flex flex-col flex-shrink-0 shadow-lg z-10 hidden md:flex">
-                <div class="p-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50 gap-2">
+                <div class="p-3 border-b border-slate-100 flex justify-between items-center bg-slate-50 gap-2">
                     <h2 class="font-bold text-slate-700 flex items-center text-[19px] lg:text-[20px] min-w-0">
                         <i class="fa-solid fa-cart-shopping text-cyan-600 mr-2 flex-shrink-0"></i>
                         <span class="truncate">ตะกร้าสินค้า</span>
@@ -97,19 +97,19 @@
                         <button onclick="toggleMobileCart()" class="md:hidden text-slate-500 hover:text-slate-700 text-[22px] p-1"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
-                <div id="cart-items-list" class="flex-1 p-3.5 space-y-3 divide-y divide-slate-100 max-h-96 overflow-y-auto"></div>
-                <div class="p-3.5 bg-slate-50 border-t border-slate-200 space-y-3 flex-shrink-0">
-                    <div class="space-y-2 text-[18px] lg:text-[19px]">
+                <div id="cart-items-list" class="flex-1 px-3.5 py-2 space-y-2 divide-y divide-slate-100 max-h-52 lg:max-h-64 overflow-y-auto"></div>
+                <div class="p-3 bg-slate-50 border-t border-slate-200 space-y-2 flex-shrink-0">
+                    <div class="space-y-1.5 text-[18px] lg:text-[19px]">
                         <div class="flex justify-between text-slate-500 gap-2"><span>ราคารวมสินค้า</span><span id="cart-subtotal" class="whitespace-nowrap font-medium">0.00 ฿</span></div>
                         <div class="flex justify-between text-slate-500 gap-2"><span>ต้นทุนรวมสินค้า</span><span id="cart-total-cost" class="whitespace-nowrap font-medium">0.00 ฿</span></div>
-                        <div class="flex justify-between font-semibold text-emerald-600 text-[17px] bg-emerald-50 p-2 rounded-xl border border-emerald-100 gap-2">
+                        <div class="flex justify-between font-semibold text-emerald-600 text-[17px] bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100 gap-2">
                             <span><i class="fa-solid fa-chart-line mr-1"></i> กำไรสุทธิของบิลนี้</span><span id="cart-total-profit" class="whitespace-nowrap">0.00 ฿</span>
                         </div>
-                        <div class="flex justify-between text-[21px] lg:text-[22px] font-bold text-slate-800 pt-2 border-t border-slate-200 gap-2">
+                        <div class="flex justify-between text-[21px] lg:text-[22px] font-bold text-slate-800 pt-1.5 border-t border-slate-200 gap-2">
                             <span>ยอดชำระสุทธิ</span><span id="cart-grand-total" class="text-cyan-600 whitespace-nowrap">0.00 ฿</span>
                         </div>
                     </div>
-                    <button onclick="openCheckoutModal()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-cyan-200 transition active:scale-[0.98] flex items-center justify-center space-x-2 text-[19px] lg:text-[20px]">
+                    <button onclick="openCheckoutModal()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg shadow-cyan-200 transition active:scale-[0.98] flex items-center justify-center space-x-2 text-[19px] lg:text-[20px]">
                         <i class="fa-solid fa-money-bill-wave"></i><span>ชำระเงิน / คิดเงิน</span>
                     </button>
                 </div>
@@ -1065,10 +1065,10 @@
             const list = document.getElementById('cart-items-list');
             if(list) {
                 if(cart.length === 0) { 
-                    list.innerHTML = `<div class="py-12 text-center text-slate-400 text-[19px]">ยังไม่มีสินค้าในตะกร้า</div>`; 
+                    list.innerHTML = `<div class="py-8 text-center text-slate-400 text-[19px]">ยังไม่มีสินค้าในตะกร้า</div>`; 
                 } else {
                     list.innerHTML = cart.map((item, index) => `
-                        <div class="py-3 flex items-center justify-between gap-2">
+                        <div class="py-2 flex items-center justify-between gap-2">
                             <div class="flex flex-col items-center justify-center flex-shrink-0">
                                 <button onclick="updateCartItemOrder(${index}, -1)" class="text-slate-400 hover:text-cyan-600 text-[12px] leading-none p-0.5" title="เลื่อนขึ้น"><i class="fa-solid fa-chevron-up"></i></button>
                                 <span class="text-[13px] font-bold text-slate-500 my-0.5">${index + 1}</span>
