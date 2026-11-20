@@ -393,49 +393,57 @@
         </div>
     </div>
 
-    <div id="checkout-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="font-bold text-[23px] text-slate-800"><i class="fa-solid fa-cash-register text-cyan-600 mr-2"></i> ชำระเงินสินค้า</h3>
-                <button onclick="closeModal('checkout-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-[25px]"></i></button>
+    <div id="checkout-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-4 lg:p-5 shadow-2xl space-y-2.5">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 class="font-bold text-[20px] lg:text-[21px] text-slate-800"><i class="fa-solid fa-cash-register text-cyan-600 mr-2"></i> ชำระเงินสินค้า</h3>
+                <button onclick="closeModal('checkout-modal')" class="text-slate-400 hover:text-slate-600 p-1"><i class="fa-solid fa-xmark text-[24px]"></i></button>
             </div>
-            <div class="space-y-3 text-[20px]">
-                <div class="bg-slate-50 p-3.5 rounded-xl space-y-2">
-                    <div class="flex justify-between text-slate-600"><span>ยอดรวมสินค้า:</span><span id="chk-subtotal" class="font-bold">0.00 ฿</span></div>
-                    <div class="flex items-center gap-2 pt-2 border-t border-slate-200">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-[18px]">
+                <div class="bg-slate-50 p-3 rounded-2xl space-y-2 flex flex-col justify-between">
+                    <div class="flex justify-between items-center text-slate-600 gap-2">
+                        <span>ยอดรวมสินค้า:</span>
+                        <span id="chk-subtotal" class="font-bold text-[19px] whitespace-nowrap">0.00 ฿</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-200">
                         <span class="text-slate-600 whitespace-nowrap">ส่วนลด:</span>
-                        <input type="number" id="discount-val" oninput="calculateCheckoutFinal()" placeholder="0" class="w-28 px-3 py-1.5 border rounded-lg text-right font-bold text-[20px] focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-                        <select id="discount-type" onchange="calculateCheckoutFinal()" class="px-2.5 py-1.5 border rounded-lg text-[18px] bg-white">
-                            <option value="baht">บาท (฿)</option>
-                            <option value="percent">เปอร์เซ็นต์ (%)</option>
-                        </select>
+                        <div class="flex items-center gap-1.5">
+                            <input type="number" id="discount-val" oninput="calculateCheckoutFinal()" placeholder="0" class="w-24 px-2.5 py-1 border rounded-lg text-right font-bold text-[18px] focus:ring-2 focus:ring-cyan-500 focus:outline-none bg-white">
+                            <select id="discount-type" onchange="calculateCheckoutFinal()" class="px-2 py-1 border rounded-lg text-[16px] bg-white">
+                                <option value="baht">บาท (฿)</option>
+                                <option value="percent">%</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="bg-cyan-50 p-3 rounded-xl text-center border border-cyan-100 mt-1">
+                        <p class="text-[15px] text-cyan-700 font-medium">ยอดชำระสุทธิ</p>
+                        <h2 class="text-[26px] lg:text-[28px] font-extrabold text-cyan-700 leading-tight" id="modal-grand-total">0.00 ฿</h2>
                     </div>
                 </div>
-                <div class="bg-cyan-50 p-4 rounded-2xl text-center">
-                    <p class="text-[18px] text-cyan-700 font-medium">ยอดชำระสุทธิหลังหักส่วนลด</p>
-                    <h2 class="text-[32px] font-extrabold text-cyan-700" id="modal-grand-total">0.00 ฿</h2>
-                </div>
-                <div>
-                    <label class="block text-[18px] font-medium text-slate-600 mb-1.5">ช่องทางการชำระเงิน</label>
-                    <div class="grid grid-cols-2 gap-2.5">
-                        <button type="button" onclick="setPaymentMethod('cash')" id="btn-pay-cash" class="py-3 px-3 rounded-xl font-medium text-[20px] border flex items-center justify-center space-x-2 bg-cyan-50 text-cyan-700 border-cyan-200"><i class="fa-solid fa-money-bill-wave"></i> <span>เงินสด</span></button>
-                        <button type="button" onclick="setPaymentMethod('transfer')" id="btn-pay-transfer" class="py-3 px-3 rounded-xl font-medium text-[20px] border flex items-center justify-center space-x-2 bg-slate-50 text-slate-600 border-slate-200"><i class="fa-solid fa-qrcode"></i> <span>โอนเงิน / QR</span></button>
-                    </div>
-                </div>
-                <div id="cash-section" class="space-y-2.5">
+
+                <div class="space-y-2.5 flex flex-col justify-between">
                     <div>
-                        <label class="block text-[18px] font-medium text-slate-600 mb-1">รับเงินมา (บาท)</label>
-                        <input type="number" id="cash-given" oninput="calculateChange()" class="w-full px-4 py-3 text-[25px] font-bold border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none" placeholder="0.00">
+                        <label class="block text-[16px] font-medium text-slate-600 mb-1">ช่องทางการชำระเงิน</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="setPaymentMethod('cash')" id="btn-pay-cash" class="py-2 px-2.5 rounded-xl font-medium text-[18px] border flex items-center justify-center space-x-1.5 bg-cyan-50 text-cyan-700 border-cyan-200"><i class="fa-solid fa-money-bill-wave"></i> <span>เงินสด</span></button>
+                            <button type="button" onclick="setPaymentMethod('transfer')" id="btn-pay-transfer" class="py-2 px-2.5 rounded-xl font-medium text-[18px] border flex items-center justify-center space-x-1.5 bg-slate-50 text-slate-600 border-slate-200"><i class="fa-solid fa-qrcode"></i> <span>โอนเงิน</span></button>
+                        </div>
                     </div>
-                    <div class="flex justify-between items-center bg-slate-50 p-3.5 rounded-xl">
-                        <span class="text-[20px] font-medium text-slate-600">เงินทอน:</span>
-                        <span class="text-[25px] font-bold text-emerald-600" id="change-amount">0.00 ฿</span>
+                    <div id="cash-section" class="space-y-2">
+                        <div>
+                            <label class="block text-[16px] font-medium text-slate-600 mb-1">รับเงินมา (บาท)</label>
+                            <input type="number" id="cash-given" oninput="calculateChange()" class="w-full px-3 py-1.5 text-[21px] font-bold border rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none" placeholder="0.00">
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
+                            <span class="text-[17px] font-medium text-slate-600">เงินทอน:</span>
+                            <span class="text-[21px] font-bold text-emerald-600 whitespace-nowrap" id="change-amount">0.00 ฿</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="flex gap-2.5 pt-2">
-                <button onclick="closeModal('checkout-modal')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-3.5 rounded-xl transition text-[20px]">ยกเลิก</button>
-                <button onclick="confirmCheckout()" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-cyan-200 transition text-[20px]">ยืนยันการขาย & พิมพ์บิล</button>
+            <div class="flex gap-2.5 pt-1">
+                <button onclick="closeModal('checkout-modal')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-2.5 rounded-xl transition text-[19px]">ยกเลิก</button>
+                <button onclick="confirmCheckout()" class="flex-[1.5] bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 rounded-xl shadow-lg shadow-cyan-200 transition text-[19px]">ยืนยันการขาย & พิมพ์บิล</button>
             </div>
         </div>
     </div>
@@ -1108,16 +1116,19 @@
             const btnTransfer = document.getElementById('btn-pay-transfer');
             const cashSec = document.getElementById('cash-section');
 
-            if(btnCash) btnCash.className = method === 'cash' ? 'py-3 px-3 rounded-xl font-medium text-[20px] border flex items-center justify-center space-x-2 bg-cyan-50 text-cyan-700 border-cyan-200' : 'py-3 px-3 rounded-xl font-medium text-[20px] border flex items-center justify-center space-x-2 bg-slate-50 text-slate-600 border-slate-200';
-            if(btnTransfer) btnTransfer.className = method === 'transfer' ? 'py-3 px-3 rounded-xl font-medium text-[20px] border flex items-center justify-center space-x-2 bg-cyan-50 text-cyan-700 border-cyan-200' : 'py-3 px-3 rounded-xl font-medium text-[20px] border flex items-center justify-center space-x-2 bg-slate-50 text-slate-600 border-slate-200';
+            if(btnCash) btnCash.className = method === 'cash' ? 'py-2 px-2.5 rounded-xl font-medium text-[18px] border flex items-center justify-center space-x-1.5 bg-cyan-50 text-cyan-700 border-cyan-200' : 'py-2 px-2.5 rounded-xl font-medium text-[18px] border flex items-center justify-center space-x-1.5 bg-slate-50 text-slate-600 border-slate-200';
+            if(btnTransfer) btnTransfer.className = method === 'transfer' ? 'py-2 px-2.5 rounded-xl font-medium text-[18px] border flex items-center justify-center space-x-1.5 bg-cyan-50 text-cyan-700 border-cyan-200' : 'py-2 px-2.5 rounded-xl font-medium text-[18px] border flex items-center justify-center space-x-1.5 bg-slate-50 text-slate-600 border-slate-200';
             if(cashSec) cashSec.classList.toggle('hidden', method !== 'cash');
         }
 
         function calculateCheckoutFinal() {
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
             const discInput = document.getElementById('discount-val');
-            const discVal = discInput ? parseFloat(discInput.value) || 0 : 0;
-            let discount = discVal > subtotal ? subtotal : (discVal < 0 ? 0 : discVal);
+            const discTypeInput = document.getElementById('discount-type');
+            const rawVal = discInput ? parseFloat(discInput.value) || 0 : 0;
+            const discType = discTypeInput ? discTypeInput.value : 'baht';
+            let calcDisc = discType === 'percent' ? (subtotal * (rawVal / 100)) : rawVal;
+            let discount = calcDisc > subtotal ? subtotal : (calcDisc < 0 ? 0 : calcDisc);
             const grandTotal = subtotal - discount;
             
             const gTotal = document.getElementById('modal-grand-total');
@@ -1130,8 +1141,12 @@
         function calculateChange() {
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
             const discInput = document.getElementById('discount-val');
-            const discVal = discInput ? parseFloat(discInput.value) || 0 : 0;
-            const grandTotal = subtotal - (discVal > subtotal ? subtotal : discVal);
+            const discTypeInput = document.getElementById('discount-type');
+            const rawVal = discInput ? parseFloat(discInput.value) || 0 : 0;
+            const discType = discTypeInput ? discTypeInput.value : 'baht';
+            let calcDisc = discType === 'percent' ? (subtotal * (rawVal / 100)) : rawVal;
+            const discount = calcDisc > subtotal ? subtotal : (calcDisc < 0 ? 0 : calcDisc);
+            const grandTotal = subtotal - discount;
             const givenInput = document.getElementById('cash-given');
             const given = givenInput ? parseFloat(givenInput.value) || 0 : 0;
             const change = given - grandTotal;
@@ -1144,8 +1159,11 @@
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
             const totalCost = cart.reduce((sum, item) => sum + (item.cost * item.qty), 0);
             const discInput = document.getElementById('discount-val');
-            const discVal = discInput ? parseFloat(discInput.value) || 0 : 0;
-            const discount = discVal > subtotal ? subtotal : discVal;
+            const discTypeInput = document.getElementById('discount-type');
+            const rawVal = discInput ? parseFloat(discInput.value) || 0 : 0;
+            const discType = discTypeInput ? discTypeInput.value : 'baht';
+            let calcDisc = discType === 'percent' ? (subtotal * (rawVal / 100)) : rawVal;
+            const discount = calcDisc > subtotal ? subtotal : (calcDisc < 0 ? 0 : calcDisc);
             const grandTotal = subtotal - discount;
             const profit = grandTotal - totalCost;
             const givenInput = document.getElementById('cash-given');
